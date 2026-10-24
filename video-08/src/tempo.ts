@@ -7,7 +7,7 @@ export const BLOCOS = timing.blocos as { s: number; e: number }[];
 export const PROVISORIO = Boolean((timing as { provisorio?: boolean }).provisorio);
 
 export const FPS = 30;
-export const DURACAO = BLOCOS[BLOCOS.length - 1].e + 1.6;
+export const DURACAO = Math.min(90, BLOCOS[BLOCOS.length - 1].e + 1.6); // fabriqsabia: até 90 s
 
 // mantém os acentos: "é" e "e" são palavras diferentes
 const norm = (s: string) => s.normalize('NFC').toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');

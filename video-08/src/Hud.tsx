@@ -174,7 +174,7 @@ const Selo: React.FC<{ t: number }> = ({ t }) => {
   if (v <= 0.001) return null;
   const ok = sim > nao;
   return (
-    <div style={{ position: 'absolute', left: 0, right: 0, top: 420, display: 'flex', justifyContent: 'center', opacity: v, transform: `scale(${lerp(0.8, 1, saida(v))})` }}>
+    <div style={{ position: 'absolute', left: 0, right: 0, top: 400, display: 'flex', justifyContent: 'center', opacity: v, transform: `scale(${lerp(0.8, 1, saida(v))})` }}>
       <div style={{ padding: '10px 26px', borderRadius: 999, background: ok ? COR.move : COR.objeto, fontFamily: MONO, fontWeight: 700, fontSize: 34, letterSpacing: 3, color: COR.fundo }}>
         {ok ? '✓ GIROU' : '✗ NÃO GIRA'}
       </div>
@@ -204,7 +204,7 @@ const CartaoDentes: React.FC<{ t: number; e: Estado }> = ({ t, e }) => {
   const v = janela(t, ev.dente - 0.2, ev.certa, 0.25, 0.3);
   if (v <= 0.001) return null;
   return (
-    <Baixo v={v} top={430}>
+    <Baixo v={v} top={400}>
       <Digitos cod={CERTA} acesos={e.pinos.map((p) => p.alinhado)} />
       <div style={{ marginTop: 10 }}><Rot>CADA DENTE, UMA ALTURA</Rot></div>
     </Baixo>
@@ -221,7 +221,7 @@ const CartaoLinha: React.FC<{ t: number; e: Estado }> = ({ t, e }) => {
   const n = e.pinos.filter((p) => p.alinhado).length;
   const errado = v2 > v1;
   return (
-    <Baixo v={v} top={520}>
+    <Baixo v={v} top={400}>
       <Digitos cod={errado ? VIZINHO : CERTA} acesos={e.pinos.map((p) => p.alinhado)} erro={errado ? 1 : -1} />
       <div style={{ marginTop: 10 }}>
         <Rot cor={n === 5 ? COR.move : COR.rotulo}>{n === 5 ? '5 DE 5 NA LINHA' : errado ? 'O 2º PINO PASSA DA LINHA' : `${n} DE 5 NA LINHA`}</Rot>
@@ -239,7 +239,7 @@ const CartaoConta: React.FC<{ t: number }> = ({ t }) => {
   return (
     <>
       {v > 0.001 && (
-        <Baixo v={v} top={430}>
+        <Baixo v={v} top={400}>
           <div style={{ display: 'flex', gap: 34, alignItems: 'center' }}>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontFamily: TITULO, fontSize: 52, color: COR.objeto, lineHeight: 1.05 }}>MILHARES</div>
@@ -254,7 +254,7 @@ const CartaoConta: React.FC<{ t: number }> = ({ t }) => {
         </Baixo>
       )}
       {v2 > 0.001 && (
-        <Baixo v={v2} top={430}>
+        <Baixo v={v2} top={400}>
           <Rot>SUA CHAVE</Rot>
           <div style={{ margin: '8px 0 14px' }}><Digitos cod={CERTA} /></div>
           <Rot>OUTRA PORTA, EM ALGUM LUGAR</Rot>

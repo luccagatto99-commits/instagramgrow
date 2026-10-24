@@ -109,7 +109,7 @@ export type Estado = ReturnType<typeof estado>;
 const percursos = () => {
   const e = E();
   return {
-    sua: [e.chave, 2.6, B(5) - 0.9, 0.7],
+    sua: [e.chave, 2.6, B(5) - 0.45, 0.6],
     vizinho: [-0.9, e.vizinhoEntra + 0.6 + 0.9, e.em90 + 0.5, 0.9, e.errada, 1.3, B(6) - 0.55, 0.6],
     outra: [B(6) + 0.1, 1.15, e.fim - 0.75, 0.7],
   } as Record<Chave['nome'], number[]>;
@@ -133,7 +133,7 @@ const tranco = (t: number, a: number) => {
 };
 const giro = (t: number) => {
   const e = E();
-  const g1 = prog(t, e.gira, 0.9, suave) * (1 - prog(t, B(5) - 1.6, 0.6, suave));
+  const g1 = prog(t, e.gira, 0.9, suave) * (1 - prog(t, B(5) - 1.0, 0.5, suave));
   const g2 = prog(t, e.abre6, 0.75, suave) * (1 - prog(t, e.fim - 1.45, 0.6, suave));
   return (Math.PI / 2) * Math.max(g1, g2) + tranco(t, e.tranco0) + tranco(t, e.travando) + tranco(t, e.sai);
 };
@@ -183,7 +183,10 @@ export const estado = (t: number) => {
   // lingueta: recua quando o cilindro gira (a came puxa)
   const lingueta = -0.75 * clamp((girou - 0.15) / 0.75);
 
-  return { t, abertura, giroInicial, chaves, rot, girou, pinos, todosAlinhados, dest, linhaVisivel, linhaQuente, mola, lingueta };
+  // lingueta só aparece quando a narração chega nela (antes, só poluiria a cena)
+  const linguetaVisivel = Math.max(janela(t, e.atras - 0.3, B(5) - 0.3, 0.35, 0.4), janela(t, e.abre6 - 0.2, e.fim - 0.6, 0.35, 0.4));
+
+  return { t, abertura, linguetaVisivel, giroInicial, chaves, rot, girou, pinos, todosAlinhados, dest, linhaVisivel, linhaQuente, mola, lingueta };
 };
 
 export { clamp, lerp };

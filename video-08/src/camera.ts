@@ -29,7 +29,7 @@ const chaves = (): Chave[] => {
   ];
 };
 
-const LONGE = 1.0;
+const LONGE = 1.55; // afasta todas as posições: a fechadura inteira (com a chave) cabe na largura
 let cache: Chave[] | null = null;
 const em = (k: Chave, t: number, limite: number) => {
   const dt = Math.max(0, Math.min(t, limite) - k.t);

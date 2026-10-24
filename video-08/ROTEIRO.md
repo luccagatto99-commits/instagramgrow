@@ -6,7 +6,7 @@ Duração-alvo: até 90 s (~210 palavras, como os vídeos 01–07).
 
 | Trecho | Narração (resumo) | Na tela |
 |---|---|---|
-| Gancho | "Por que a chave do vizinho não abre a sua porta?" | Duas portas lado a lado; a chave do vizinho entra na sua fechadura e trava. Cronômetro 90. |
+| Gancho | "Por que a chave do vizinho não abre a sua porta?" | A fechadura fechada, de três quartos; a chave do vizinho entra, tenta girar e trava (selo "✗ NÃO GIRA"). Cronômetro 90. |
 | Abertura | Cilindro + corpo; o cilindro precisa girar | Fechadura inteira gira e se abre ao meio (corte longitudinal): cilindro claro dentro do corpo. Rótulos CILINDRO / CORPO. |
 | O que trava | Furos, mola, pino de cima, pino de baixo | Zoom numa coluna: mola, pino de cima, pino de baixo. Pino de cima atravessando a divisa cilindro/corpo. Rótulo LINHA DE CORTE. |
 | Chave certa | Dentes levantam os pinos; emendas alinham na linha | Chave entra da esquerda; os 5 pinos sobem um a um; as emendas acendem em laranja quando batem na linha; cilindro gira; came puxa a lingueta. |

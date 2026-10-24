@@ -1,6 +1,7 @@
 // A fechadura aberta ao meio: corpo, cilindro, 5 colunas de pinos e molas, a chave, a came e a lingueta.
 import { useMemo } from 'react';
 import * as THREE from 'three';
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import {
   COR, CHAVE_BAIXO, Chave, Estado, FURO_TOPO, KB, KE, KT, LAMINA, L_BAIXO, L_CIMA, PROF, PX, R, RF, RP, TOPO, X0, X1, topoChave,
 } from '../estado';
@@ -16,16 +17,22 @@ const retangulos = (rs: [number, number, number, number][]) =>
     return s;
   });
 
-/** corpo, parte de cima: um "pente" com os 5 furos abertos para baixo */
+/** corpo, parte de cima: perto do corte, um "pente" com os 5 furos abertos para baixo; atrás, bloco maciço
+ *  (assim a metade da frente, espelhada, fica fechada por fora) */
 const corpoCima = () => {
-  const s = new THREE.Shape();
-  s.moveTo(X0, R);
+  const pente = new THREE.Shape();
+  pente.moveTo(X0, R);
   for (const px of PX) {
-    s.lineTo(px - RF, R); s.lineTo(px - RF, FURO_TOPO); s.lineTo(px + RF, FURO_TOPO); s.lineTo(px + RF, R);
+    pente.lineTo(px - RF, R); pente.lineTo(px - RF, FURO_TOPO); pente.lineTo(px + RF, FURO_TOPO); pente.lineTo(px + RF, R);
   }
-  s.lineTo(X1, R); s.lineTo(X1, TOPO - 0.14); s.quadraticCurveTo(X1, TOPO, X1 - 0.14, TOPO);
-  s.lineTo(X0 + 0.14, TOPO); s.quadraticCurveTo(X0, TOPO, X0, TOPO - 0.14); s.closePath();
-  return new THREE.ExtrudeGeometry(s, { depth: PROF, bevelEnabled: false }).translate(0, 0, -PROF);
+  pente.lineTo(X1, R); pente.lineTo(X1, TOPO - 0.14); pente.quadraticCurveTo(X1, TOPO, X1 - 0.14, TOPO);
+  pente.lineTo(X0 + 0.14, TOPO); pente.quadraticCurveTo(X0, TOPO, X0, TOPO - 0.14); pente.closePath();
+  const bloco = new THREE.Shape();
+  bloco.moveTo(X0, R); bloco.lineTo(X1, R); bloco.lineTo(X1, TOPO - 0.14); bloco.quadraticCurveTo(X1, TOPO, X1 - 0.14, TOPO);
+  bloco.lineTo(X0 + 0.14, TOPO); bloco.quadraticCurveTo(X0, TOPO, X0, TOPO - 0.14); bloco.closePath();
+  const a = new THREE.ExtrudeGeometry(pente, { depth: RF, bevelEnabled: false }).translate(0, 0, -RF);
+  const b = new THREE.ExtrudeGeometry(bloco, { depth: PROF - RF, bevelEnabled: false }).translate(0, 0, -PROF);
+  return mergeGeometries([a, b])!;
 };
 const corpoBaixo = () => {
   const s = new THREE.Shape();
@@ -219,10 +226,14 @@ export const Fechadura: React.FC<{ e: Estado }> = ({ e }) => {
       </group>
 
       {/* lingueta: a came puxa para dentro da porta */}
-      <Peca geo={geo.guia} mat={m.guia} largura={1.4} />
-      <group position={[0, 0, e.lingueta]}>
-        <Peca geo={geo.lingueta} mat={m.lingueta} quente={e.dest.lingueta} largura={1.8} />
-      </group>
+      {e.linguetaVisivel > 0.01 && (
+        <group scale={[1, 1, 1]} position={[0, -0.4 * (1 - e.linguetaVisivel), 0]}>
+          <Peca geo={geo.guia} mat={m.guia} largura={1.4} />
+          <group position={[0, 0, e.lingueta]}>
+            <Peca geo={geo.lingueta} mat={m.lingueta} quente={e.dest.lingueta} largura={1.8} />
+          </group>
+        </group>
+      )}
     </group>
   );
 };
