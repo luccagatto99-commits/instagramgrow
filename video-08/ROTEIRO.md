@@ -6,12 +6,12 @@ Duração-alvo: até 90 s (~210 palavras, como os vídeos 01–07).
 
 | Trecho | Narração (resumo) | Na tela |
 |---|---|---|
-| Gancho | "Tem uma chave por aí que não é a sua e abre a sua porta." | Duas chaves lado a lado entrando na mesma fechadura; as duas giram. Cronômetro 90. |
+| Gancho | "Por que a chave do vizinho não abre a sua porta?" | Duas portas lado a lado; a chave do vizinho entra na sua fechadura e trava. Cronômetro 90. |
 | Abertura | Cilindro + corpo; o cilindro precisa girar | Fechadura inteira gira e se abre ao meio (corte longitudinal): cilindro claro dentro do corpo. Rótulos CILINDRO / CORPO. |
 | O que trava | Furos, mola, pino de cima, pino de baixo | Zoom numa coluna: mola, pino de cima, pino de baixo. Pino de cima atravessando a divisa cilindro/corpo. Rótulo LINHA DE CORTE. |
 | Chave certa | Dentes levantam os pinos; emendas alinham na linha | Chave entra da esquerda; os 5 pinos sobem um a um; as emendas acendem em laranja quando batem na linha; cilindro gira; came puxa a lingueta. |
 | Chave errada | Um pino fora da altura trava tudo | Mesma cena com uma chave errada: 4 alinham, 1 passa da linha; cilindro dá um tranco e não gira. |
-| Virada | Combinações limitadas vs. milhões de fechaduras | Fileira de chaves passando; duas com o mesmo perfil se destacam. Contador "milhares de combinações" × "milhões de fechaduras". |
+| Virada | "Mas às vezes, abre": combinações limitadas vs. milhões de fechaduras | Fileira de chaves passando; duas com o mesmo perfil se destacam. Contador "milhares de combinações" × "milhões de fechaduras". |
 | Fechamento | "Agora você sabe como uma fechadura funciona por dentro." + seguir | Fechadura se fecha; CTA. |
 
 ## Uso do laranja
