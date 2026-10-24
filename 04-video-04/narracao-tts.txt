@@ -1,0 +1,21 @@
+Em dois mil e vinte e três, em Nova York, um advogado pediu ao ChatGPT processos parecidos com o caso do seu cliente. A inteligência artificial entregou seis. Ele levou tudo ao juiz, e nenhum daqueles processos existia. Por que a inteligência artificial inventa com tanta segurança?
+
+Neste vídeo, você vai entender três coisas. Primeiro: por que a inteligência artificial inventa informações. Segundo: por que ela quase nunca diz "não sei". Terceiro: três cuidados para não cair nisso. Acompanhe até o final.
+
+Isso tem nome: alucinação. E não é mentira. Para mentir, seria preciso saber a verdade, e ela não sabe que está errada.
+
+A inteligência artificial escreve uma palavra de cada vez, sempre escolhendo a que tem mais chance de vir a seguir. Ela não consulta uma lista de fatos. Ela aprendeu como um texto costuma ser. E conhece muito bem o formato de um processo: nome das partes, número e ano.
+
+Quando a informação é conhecida, a opção mais provável é a correta. Pergunte a capital da França, e Paris é, de longe, a mais provável. Quando a informação é rara, nenhuma opção se destaca. Mesmo assim, ela precisa continuar o texto. Então completa o formato com algo que parece certo: um nome comum, um número possível, uma data que faz sentido.
+
+E aqui está o ponto mais importante: dentro dela, não existe uma etapa que confere a resposta antes de mostrar para você. Ela sabe se a frase parece certa. Não se é certa.
+
+Mas por que ela não responde "não sei"? Um estudo da Ôupenêiái, de dois mil e vinte e cinco, explica. As inteligências artificiais são avaliadas como numa prova de múltipla escolha. Chutar às vezes dá ponto. Deixar em branco nunca dá. Então elas aprendem a chutar.
+
+Por isso, os erros aparecem mais em nomes, datas, números, citações e leis. Foi o que aconteceu em Nova York. A inteligência artificial não encontrou seis processos. Ela escreveu seis processos com cara de verdadeiros. E os advogados foram multados.
+
+Três cuidados resolvem a maior parte. Primeiro: peça a fonte e abra o link. Se os advogados tivessem feito só isso, teriam descoberto antes do juiz. Segundo: para informações atuais, use a inteligência artificial com busca na internet. Terceiro: confira todo detalhe muito específico.
+
+Resumindo: a inteligência artificial escreve o que é provável, não o que é verdadeiro. Ela chuta porque foi avaliada assim. E segurança na resposta não é garantia de acerto.
+
+Turno encerrado. Para entender a inteligência artificial por dentro, siga a página. A fábrica abre todo dia.

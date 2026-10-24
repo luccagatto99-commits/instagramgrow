@@ -1,0 +1,267 @@
+// Notebook aberto ao meio: base com a placa à mostra (processador com bilhões de chavinhas, memória, disco, trilhas),
+// teclado que sobe e fica transparente, tampa com a tela de pontinhos. Os bits (laranja = 1, contorno = 0) correm pelos fios.
+import { useMemo } from 'react';
+import * as THREE from 'three';
+import {
+  BASE, BITS_A, COR, CONECTOR, CPU, ERGUE, Estado, PIXELS_A, RAM, SSD, TAMPA, TECLA, TECLA_A, TELA, V3, naTampa,
+} from '../estado';
+import { Contorno, Peca, brilho, toon } from './base';
+import { Fluxo, Haste } from './pecas';
+import { aleatorio } from '../tempo';
+
+const v3 = (p: V3) => new THREE.Vector3(...p);
+const curva = (pts: V3[]) => new THREE.CatmullRomCurve3(pts.map(v3), false, 'catmullrom', 0.1);
+const Y = BASE.h;
+const YT = 0.075; // altura das trilhas na placa
+
+// ---- caminhos dos bits ----
+const yTec = Y + ERGUE;
+export const FIO_TECLADO = curva([
+  [TECLA_A[0], yTec + 0.06, TECLA_A[1]], [TECLA_A[0], yTec - 0.03, TECLA_A[1] + 0.02], [-0.7, yTec - 0.035, 0.2],
+  [CONECTOR[0], yTec - 0.04, CONECTOR[2] - 0.05], [CONECTOR[0], 0.32, CONECTOR[2]], [CONECTOR[0], YT + 0.02, CONECTOR[2] - 0.02],
+  [-0.15, YT, 0.3], [0, YT, 0.16], [CPU[0], YT, CPU[2] + 0.38],
+]);
+const FIO_RAM = curva([[CPU[0] + 0.4, YT, CPU[2]], [0.52, YT, CPU[2] + 0.02], [RAM[0] - 0.32, YT, RAM[2]], [RAM[0], YT + 0.03, RAM[2]]]);
+const FIO_SSD = curva([[CPU[0] - 0.4, YT, CPU[2]], [-0.52, YT, CPU[2] + 0.02], [SSD[0] + 0.2, YT, SSD[2]], [SSD[0], YT + 0.03, SSD[2]]]);
+const FIO_TELA = curva([
+  [CPU[0], YT, CPU[2] - 0.4], [0, YT, -0.84], [0, Y - 0.02, -0.93], naTampa(0, 0.06, 0.0), naTampa(0, 0.22, 0.034),
+]);
+const DECOR: V3[][] = [
+  [[-0.3, YT, CPU[2] - 0.4], [-0.6, YT, -0.82]], [[0.3, YT, CPU[2] - 0.4], [0.6, YT, -0.82]],
+  [[-0.42, YT, CPU[2] + 0.25], [-0.7, YT, 0.25], [-1.1, YT, 0.3]], [[0.42, YT, CPU[2] + 0.25], [0.7, YT, 0.25], [1.15, YT, 0.3]],
+  [[0.25, YT, CPU[2] + 0.4], [0.45, YT, 0.55], [0.9, YT, 0.62]],
+];
+const FIOS_DECOR = DECOR.map((p) => curva(p));
+const TODOS = [FIO_TECLADO, FIO_RAM, FIO_SSD, FIO_TELA, ...FIOS_DECOR];
+const BORDA_PLACA = [FIO_RAM, FIO_SSD, FIO_TELA, ...FIOS_DECOR];
+
+const CUBO = new THREE.BoxGeometry(1, 1, 1);
+const GRADE = Array.from({ length: 35 }, (_, i) => [i % 5, Math.floor(i / 5)] as const);
+
+/** fila de bits andando por um fio: `d` = distância percorrida (mundo) de cada bit; some no fim do fio */
+const Trem: React.FC<{ c: THREE.Curve<THREE.Vector3>; bits: number[]; d: number[]; v?: number }> = ({ c, bits, d, v = 1 }) => {
+  const L = useMemo(() => c.getLength(), [c]);
+  const m = useMemo(() => ({ um: brilho(COR.move, 2.6), zero: new THREE.MeshBasicMaterial({ color: COR.rotulo, transparent: true, opacity: 0.9 }) }), []);
+  const p = new THREE.Vector3();
+  return (
+    <group>
+      {bits.map((b, k) => {
+        const u = d[k] / L;
+        if (u <= 0 || u >= 1) return null;
+        c.getPointAt(u, p);
+        const s = 0.11 * Math.min(1, u * 12, (1 - u) * 12) * v;
+        return b ? (
+          <mesh key={k} geometry={CUBO} material={m.um} position={[p.x, p.y + 0.03, p.z]} scale={s} />
+        ) : (
+          <group key={k} position={[p.x, p.y + 0.03, p.z]} scale={s}>
+            <mesh geometry={CUBO} material={m.zero} scale={0.55} />
+            <Contorno geo={CUBO} largura={2} />
+          </group>
+        );
+      })}
+    </group>
+  );
+};
+
+/** chavinhas (transistores) do miolo do chip: piscam ligando e desligando */
+const N_CH = 11;
+const Chaves: React.FC<{ e: Estado }> = ({ e }) => {
+  const inst = useMemo(() => {
+    const im = new THREE.InstancedMesh(CUBO, new THREE.MeshBasicMaterial({ color: 'white', toneMapped: false }), N_CH * N_CH);
+    im.frustumCulled = false;
+    return im;
+  }, []);
+  const sem = useMemo(() => { const r = aleatorio(17); return Array.from({ length: N_CH * N_CH }, () => [r(), r() * 10] as const); }, []);
+  const o = useMemo(() => new THREE.Object3D(), []);
+  const ligada = useMemo(() => new THREE.Color(COR.move).multiplyScalar(2.4), []);
+  const apagada = useMemo(() => new THREE.Color(COR.escuro).multiplyScalar(1.6), []);
+  const passo = 0.046;
+  for (let i = 0; i < N_CH * N_CH; i++) {
+    const [f, fase] = sem[i];
+    const on = e.chaveando > 0.01 && Math.sin(e.t * e.ritmo * (0.6 + f) + fase * 3) > 0.15;
+    o.position.set(((i % N_CH) - (N_CH - 1) / 2) * passo, 0.012, (Math.floor(i / N_CH) - (N_CH - 1) / 2) * passo);
+    o.scale.set(passo * 0.7, 0.02, passo * 0.7);
+    o.updateMatrix();
+    inst.setMatrixAt(i, o.matrix);
+    inst.setColorAt(i, on ? ligada : apagada);
+  }
+  inst.instanceMatrix.needsUpdate = true;
+  if (inst.instanceColor) inst.instanceColor.needsUpdate = true;
+  return <primitive object={inst} />;
+};
+
+/** fio na placa: traço fino claro; acende laranja com a corrente */
+const Trilha: React.FC<{ c: THREE.Curve<THREE.Vector3>; aceso: number }> = ({ c, aceso }) => {
+  const g = useMemo(() => [new THREE.TubeGeometry(c, 60, 0.012, 6), new THREE.TubeGeometry(c, 60, 0.019, 6)], [c]);
+  const m = useMemo(() => ({ base: new THREE.MeshBasicMaterial({ color: '#7E8FAE' }), luz: brilho(COR.move, 2.2) }), []);
+  m.luz.opacity = aceso;
+  return (
+    <>
+      <mesh geometry={g[0]} material={m.base} />
+      {aceso > 0.01 && <mesh geometry={g[1]} material={m.luz} renderOrder={3} />}
+    </>
+  );
+};
+
+const Opac: React.FC<{ m: THREE.Material; v: number }> = ({ m, v }) => {
+  m.opacity = v;
+  m.visible = v > 0.005;
+  return null;
+};
+
+export const Notebook: React.FC<{ e: Estado }> = ({ e }) => {
+  const g = useMemo(() => ({
+    fundo: new THREE.BoxGeometry(BASE.w, 0.04, BASE.d).translate(0, 0.02, 0),
+    paredeX: new THREE.BoxGeometry(BASE.w, Y, 0.04),
+    paredeZ: new THREE.BoxGeometry(0.04, Y, BASE.d - 0.08),
+    deck: new THREE.BoxGeometry(BASE.w, 0.03, BASE.d),
+    tecla: new THREE.BoxGeometry(TECLA.w, 0.04, TECLA.d),
+    espaco: new THREE.BoxGeometry(TECLA.passo * 5 - 0.03, 0.04, TECLA.d),
+    touch: new THREE.BoxGeometry(0.9, 0.006, 0.5),
+    placa: new THREE.BoxGeometry(2.6, 0.025, 1.7),
+    cpuBase: new THREE.BoxGeometry(0.8, 0.02, 0.8),
+    cpuTampa: new THREE.BoxGeometry(0.58, 0.03, 0.58),
+    miolo: new THREE.BoxGeometry(0.56, 0.008, 0.56),
+    pente: new THREE.BoxGeometry(0.3, 0.015, 0.95),
+    chipRam: new THREE.BoxGeometry(0.2, 0.02, 0.17),
+    ssd: new THREE.BoxGeometry(0.24, 0.015, 0.85),
+    chipSsd: new THREE.BoxGeometry(0.17, 0.02, 0.26),
+    conector: new THREE.BoxGeometry(0.22, 0.04, 0.08),
+    fita: new THREE.BoxGeometry(0.16, 0.004, 1),
+    tampa: new THREE.BoxGeometry(BASE.w, TAMPA.h, TAMPA.esp).translate(0, TAMPA.h / 2, 0),
+    tela: new THREE.PlaneGeometry(TELA.w, TELA.h),
+    pixel: new THREE.PlaneGeometry(1, 1),
+    cursor: new THREE.PlaneGeometry(0.05, 0.22),
+  }), []);
+  const m = useMemo(() => ({
+    objeto: toon(COR.objeto),
+    sombra: toon(COR.sombra),
+    deck: toon(COR.objeto, { transparent: true, depthWrite: false }),
+    teclas: toon(COR.objeto, { transparent: true, depthWrite: false }),
+    teclaA: toon(COR.objeto),
+    touch: toon('#E2DED3', { transparent: true, depthWrite: false }),
+    placa: toon(COR.placa),
+    escuro: toon(COR.escuro),
+    metal: toon('#DDE0E5'),
+    miolo: new THREE.MeshBasicMaterial({ color: '#1B2638' }),
+    ramLuz: brilho(COR.move, 2.2),
+    ssdLuz: brilho(COR.move, 2.2),
+    fita: toon('#D9C9A8'),
+    tela: new THREE.MeshBasicMaterial({ color: COR.tela }),
+    pixel: brilho(COR.move, 2.0),
+    pixelApagado: new THREE.MeshBasicMaterial({ color: '#1C3756' }),
+  }), []);
+
+  const t = e.t;
+  const er = e.ergue * ERGUE;
+  const transp = e.ergue; // teclado fica transparente quando sobe
+  const teclas = useMemo(() => {
+    const out: { x: number; z: number; a: boolean }[] = [];
+    for (let r = 0; r < 4; r++) for (let k = 0; k < 12; k++) {
+      out.push({ x: TECLA.x0 + k * TECLA.passo, z: TECLA.z0 + r * TECLA.passo, a: r === 2 && k === 1 });
+    }
+    return out;
+  }, []);
+
+  const telaLuz = e.telaLigada;
+  m.tela.color.set(COR.tela).lerp(new THREE.Color('#05090F'), 1 - telaLuz);
+  const nAceso = Math.round(e.letra * PIXELS_A.length);
+  const px = 0.15;
+  const cursor = telaLuz > 0.5 && Math.floor(t * 2.2) % 2 === 0;
+
+  return (
+    <group rotation={[0, e.giro, 0]}>
+      {/* casca da base */}
+      <Peca geo={g.fundo} mat={m.objeto} />
+      <Peca geo={g.paredeX} mat={m.objeto} position={[0, Y / 2, BASE.d / 2 - 0.02]} />
+      <Peca geo={g.paredeX} mat={m.objeto} position={[0, Y / 2, -BASE.d / 2 + 0.02]} />
+      <Peca geo={g.paredeZ} mat={m.sombra} position={[BASE.w / 2 - 0.02, Y / 2, 0]} />
+      <Peca geo={g.paredeZ} mat={m.sombra} position={[-BASE.w / 2 + 0.02, Y / 2, 0]} />
+
+      {/* placa */}
+      <Peca geo={g.placa} mat={m.placa} position={[0, 0.055, 0]} quente={e.destPlaca} sombra={false} />
+      {BORDA_PLACA.map((c, i) => <Trilha key={i} c={c} aceso={e.acesoFios * (1 - e.desligado)} />)}
+      <Trilha c={FIO_TECLADO} aceso={e.acesoFios * (1 - e.desligado) * Math.min(1, e.ergue * 1.5)} />
+      <Peca geo={g.conector} mat={m.escuro} position={[CONECTOR[0], 0.08, CONECTOR[2]]} />
+
+      {/* processador: a tampa de metal sobe e mostra as chavinhas */}
+      <group position={CPU}>
+        <Peca geo={g.cpuBase} mat={m.escuro} position={[0, 0, 0]} quente={e.destCpu} />
+        <Peca geo={g.miolo} mat={m.miolo} position={[0, 0.012, 0]} contorno={false} />
+        <group position={[0, 0.016, 0]}><Chaves e={e} /></group>
+        <Peca geo={g.cpuTampa} mat={m.metal} position={[0, 0.03 + e.abreChip * 0.4, 0]} quente={e.destCpu} />
+      </group>
+
+      {/* memória: dois pentes com chips que acendem quando guardam */}
+      {[-0.17, 0.17].map((dx, i) => (
+        <group key={i} position={[RAM[0] + dx, RAM[1] + e.destRam * 0.08, RAM[2]]}>
+          <Peca geo={g.pente} mat={m.objeto} quente={e.destRam} />
+          {[-0.33, -0.11, 0.11, 0.33].map((dz, k) => (
+            <group key={k} position={[0, 0.015, dz]}>
+              <Peca geo={g.chipRam} mat={m.escuro} />
+              <mesh geometry={g.chipRam} material={m.ramLuz} scale={[0.8, 1.1, 0.8]} position={[0, 0.003, 0]} />
+            </group>
+          ))}
+        </group>
+      ))}
+      <Opac m={m.ramLuz} v={e.ramCarga} />
+
+      {/* disco (SSD) */}
+      <group position={[SSD[0], SSD[1] + e.destSsd * 0.08, SSD[2]]}>
+        <Peca geo={g.ssd} mat={m.objeto} quente={e.destSsd} />
+        {[-0.2, 0.14].map((dz, k) => (
+          <group key={k} position={[0, 0.015, dz]}>
+            <Peca geo={g.chipSsd} mat={m.escuro} />
+            <mesh geometry={g.chipSsd} material={m.ssdLuz} scale={[0.8, 1.1, 0.8]} position={[0, 0.003, 0]} />
+          </group>
+        ))}
+      </group>
+      <Opac m={m.ssdLuz} v={e.ssdCarga} />
+
+      {/* fluxo geral de corrente */}
+      {TODOS.map((c, i) => <Fluxo key={i} curva={c} n={7} t={t + i * 0.37} vel={0.35} v={e.fluxo * (1 - e.desligado)} r={0.022} />)}
+
+      {/* bits */}
+      <Trem c={FIO_TECLADO} bits={BITS_A} d={e.tremA} />
+      <Trem c={FIO_RAM} bits={[1, 0, 1, 1, 0, 0, 1, 0]} d={e.tremRam} />
+      <Trem c={FIO_SSD} bits={[0, 1, 1, 0, 1, 0, 0, 1]} d={e.tremSsd} />
+      <Trem c={FIO_TELA} bits={BITS_A} d={e.tremTela} />
+
+      {/* fita do teclado até a placa */}
+      {e.ergue > 0.02 && (
+        <Haste a={[CONECTOR[0], 0.1, CONECTOR[2]]} b={[CONECTOR[0], Y + er - 0.02, CONECTOR[2] - 0.05]} r={0.012} mat={m.fita} />
+      )}
+
+      {/* teclado: sobe e fica transparente */}
+      <group position={[0, Y + er, 0]}>
+        <Peca geo={g.deck} mat={m.deck} opacidade={1 - 0.75 * transp} sombra={transp < 0.5} />
+        <Opac m={m.deck} v={1 - 0.86 * transp} />
+        {teclas.map((k, i) => (
+          <Peca key={i} geo={g.tecla} mat={k.a ? m.teclaA : m.teclas} position={[k.x, 0.035 - (k.a ? e.tecla * 0.03 : 0), k.z]}
+            quente={k.a ? e.destTecla : 0} opacidade={k.a ? 1 : 1 - 0.7 * transp} sombra={false} />
+        ))}
+        <Peca geo={g.espaco} mat={m.teclas} position={[0, 0.035, TECLA.z0 + 4 * TECLA.passo]} opacidade={1 - 0.7 * transp} sombra={false} />
+        <Opac m={m.teclas} v={1 - 0.75 * transp} />
+        <Peca geo={g.touch} mat={m.touch} position={[0, 0.018, 0.6]} opacidade={1 - 0.7 * transp} sombra={false} />
+        <Opac m={m.touch} v={1 - 0.8 * transp} />
+      </group>
+
+      {/* tampa com a tela */}
+      <group position={[0, Y, -BASE.d / 2]} rotation={[-TAMPA.ang, 0, 0]}>
+        <Peca geo={g.tampa} mat={m.objeto} />
+        <group position={[0, TELA.y, TAMPA.esp / 2 + 0.002]}>
+          <mesh geometry={g.tela} material={m.tela} />
+          <Contorno geo={g.tela} quente={e.destTela} largura={2} />
+          {/* a letra A em pontinhos: acendem um por um */}
+          {GRADE.map(([cx, cy], i) => (
+            <mesh key={i} geometry={g.pixel} material={m.pixelApagado} position={[(cx - 2) * px, (3 - cy) * px + 0.05, 0.001]} scale={px * 0.86} />
+          ))}
+          {telaLuz > 0.3 && PIXELS_A.slice(0, nAceso).map(([cx, cy], i) => (
+            <mesh key={i} geometry={g.pixel} material={m.pixel} position={[(cx - 2) * px, (3 - cy) * px + 0.05, 0.002]} scale={px * 0.86} />
+          ))}
+          {cursor && <mesh geometry={g.cursor} material={m.pixel} position={[0.55, -0.4, 0.002]} />}
+        </group>
+      </group>
+    </group>
+  );
+};

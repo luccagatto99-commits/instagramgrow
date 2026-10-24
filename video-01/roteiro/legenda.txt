@@ -1,0 +1,15 @@
+Em 90 segundos, você vai entender como um controle remoto funciona por dentro.
+
+Aberto ao meio, ele tem quatro camadas: a tampa de cima, os botões de borracha, a placa de circuito e o fundo, onde ficam as pilhas.
+
+Embaixo de cada botão tem um pontinho preto de carbono, que conduz eletricidade. Na placa, logo abaixo, tem dois caminhos de metal que quase se encostam. Quando você aperta, o pontinho toca nos dois, e a corrente passa.
+
+Um chip fica vigiando todos esses caminhos, e percebe na hora qual botão fechou o contato. Cada botão tem um código próprio, que é um número escrito em zeros e uns.
+
+Esse código sai pelo LED, a luzinha que fica na ponta. Ele pisca em rajadas curtas e longas, como um código Morse feito de luz. Só que essa luz é infravermelha, e o olho humano não consegue enxergar.
+
+Na TV, atrás daquela janelinha escura, tem um sensor. Ele só presta atenção em luz que pisca num ritmo certo, por isso o sol e as lâmpadas da casa não atrapalham. O sensor lê as rajadas, monta o número de volta, e a TV aumenta o volume.
+
+Quer ver essa luz? Aponte o controle para a câmera do seu celular e aperte um botão. Ela aparece piscando na tela. Se não aparecer, tente a câmera da frente.
+
+Agora você sabe como um controle remoto funciona por dentro. Segue a página para ver o próximo objeto aberto ao meio.

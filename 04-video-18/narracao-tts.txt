@@ -1,0 +1,13 @@
+Você já se perguntou como um homem paralisado jogou xadrez só com o pensamento? Em noventa segundos, você vai entender.
+
+Em 2016, num acidente, Nôlan Árbou lesionou a medula e ficou paralisado dos ombros para baixo. Em 2024, virou o primeiro paciente da Neuralink, a empresa de chips do Élon Môsque.
+
+O chip, do tamanho de uma moeda, fica no crânio. Dele saem sessenta e quatro fios, mais finos que um cabelo, com mais de mil eletrodos. Quem costura os fios no cérebro é um robô.
+
+Quando você pensa em mexer a mão, os neurônios do movimento disparam sinais elétricos. Mesmo com a medula lesionada, o cérebro continua mandando o comando. E os eletrodos escutam.
+
+Só que chega uma bagunça, centenas de neurônios ao mesmo tempo. Aí entra a inteligência artificial. Um ponto andava na tela, e Nôlan imaginava seguir ele com a mão. O modelo comparou os disparos com o caminho do ponto, e aprendeu quais padrões querem dizer esquerda, direita e clique.
+
+Em março de 2024, ele jogou xadrez ao vivo. Hoje, já são dezenas de pacientes, controlando computador e até cadeira de rodas só com o pensamento.
+
+Siga a fábrica. Uma peça nova todo dia.

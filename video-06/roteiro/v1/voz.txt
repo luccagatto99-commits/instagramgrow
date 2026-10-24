@@ -1,0 +1,15 @@
+O seu computador não entende letras, fotos nem vídeos. Ele só entende zero e um. Em noventa segundos, você vai entender como ele funciona por dentro.
+
+Lá dentro, tudo é eletricidade. Quando a corrente passa pelo fio, é um. Quando não passa, é zero. Só isso. Ligado ou desligado.
+
+Quando você aperta a letra A, ela vira oito sinais em fila. Zero, um, zero, zero, zero, zero, zero, um. Para o computador, esse é o código do A.
+
+Os sinais correm pela placa até o processador, o chip do meio. Dentro dele, tem bilhões de chavinhas minúsculas, os transistores. Cada uma liga ou desliga a corrente, como um interruptor de luz.
+
+Com duas chavinhas em fila, a luz só acende se as duas estiverem ligadas. Juntando muitas assim, o chip soma, compara e decide. Bilhões de vezes por segundo.
+
+Enquanto trabalha, ele guarda os zeros e uns na memória, que se apaga quando desliga. O que você salva vai para o disco, que guarda mesmo desligado.
+
+No fim, a resposta vai para a tela. Cada pontinho dela tem três luzes, vermelha, verde e azul. Os zeros e uns dizem a força de cada luz. E a letra A aparece.
+
+Agora você sabe como um computador funciona por dentro. Segue a página para ver o próximo.

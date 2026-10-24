@@ -1,0 +1,19 @@
+Alguém abriu o GTA 5 numa aba do navegador. Sem instalar nada. Horas depois, o site sumiu.
+
+Isso se chama engenharia reversa: descobrir como um programa foi feito sem ter o código dele. E a IA acabou de deixar isso fácil.
+
+Um jogo é escrito em código que pessoas leem: "se a vida chegar a zero, fim de jogo". Mas no seu computador só chegam números, sem os nomes.
+
+A engenharia reversa faz o caminho de volta: transforma os números em comandos, mas sem nomes. "Se a variável 8 chegar a zero..."
+
+Aí entra a IA. Treinada com bilhões de linhas de código, ela reconhece o padrão: chega a zero e encerra o jogo? Deve ser a vida. E reescreve o código mais provável.
+
+Mas provável não é certo. Então o código vira números de novo e é comparado com o original. Diferente? Ela tenta de novo.
+
+Assim, um programador reconstruiu um Call of Duty de 2009: 17 IAs, 3 meses, 99% das funções.
+
+Daí, dá para levar o código até para o navegador. No GTA, ele já tinha vazado.
+
+Mas ela copia o que um programa faz, não o que ele tem: clone do Spotify vem sem músicas. E copiar sem permissão é proibido: por isso o site do GTA sumiu.
+
+Siga a fábrica. Uma peça nova todo dia.

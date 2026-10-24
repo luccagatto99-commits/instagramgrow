@@ -1,0 +1,15 @@
+Como o celular reconhece o seu rosto? E por que uma foto sua não consegue desbloquear? Em noventa segundos, você vai entender.
+
+Perto da câmera da frente, alguns celulares têm um projetor. Ele joga milhares de pontinhos de luz infravermelha no seu rosto. Você não vê esses pontos. O celular vê.
+
+Uma câmera infravermelha fotográfa esses pontos. No nariz, mais perto, eles ficam de um jeito. Na bochecha, mais longe, ficam de outro. Assim, o celular monta um mapa em três dê do seu rosto.
+
+Aí entra a inteligência artificial. Ela transforma esse mapa numa lista de números, como uma assinatura do seu rosto. E compara com a assinatura que ficou guardada no cadastro.
+
+Se as duas forem parecidas, o celular desbloqueia. Se não forem, ele continua trancado.
+
+Por isso, a foto não engana. Ela é plana. Não tem nariz mais perto, nem bochecha mais longe.
+
+Mas atenção. Muitos celulares usam só a câmera comum, sem os pontos. Esses podem ser enganados por uma foto. Neles, prefira a senha ou a digital.
+
+Siga a fábrica. Uma peça nova todo dia.

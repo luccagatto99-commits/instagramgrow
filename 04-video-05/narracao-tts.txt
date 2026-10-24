@@ -1,0 +1,25 @@
+Em mil novecentos e cinquenta e seis, um grupo de cientistas achou que resolveria a inteligência artificial em um único verão. Erraram por quase setenta anos.
+
+Neste vídeo, você vai entender três coisas. Primeiro: o teste de Tiúring. Segundo: o programa que enganou até quem sabia como ele funcionava. Terceiro: por que a inteligência artificial demorou tanto. Acompanhe até o final.
+
+Tudo começa com Álan Tiúring, que ajudou a quebrar os códigos nazistas na guerra. Em mil novecentos e cinquenta, ele propôs um teste. Você conversa por escrito com alguém que não consegue ver. Se não souber dizer se é uma pessoa ou uma máquina, a máquina passou.
+
+Seis anos depois, cientistas se reuniram para estudar isso por um verão. Foi ali que nasceu o nome "inteligência artificial". Um dos pais da área prometeu: em vinte anos, as máquinas fariam qualquer trabalho humano.
+
+Em mil novecentos e sessenta e seis, surgiu a ELIZA. Ela não entendia nada. Só seguia regras escritas à mão: você escrevia "estou triste", e ela respondia "por que você está triste?". A secretária do criador acompanhou a construção e sabia que era só isso. Mesmo assim, depois de poucas mensagens, pediu para ele sair da sala. Queria conversar a sós com a máquina.
+
+Isso ganhou nome: efeito ELIZA. A gente enxerga inteligência onde só existe um truque.
+
+Mas regras escritas à mão não davam conta do mundo real. Existem exceções demais para alguém escrever todas. As promessas falharam, o dinheiro sumiu, e veio o "inverno da inteligência artificial".
+
+Em mil novecentos e noventa e sete, um computador da IBM venceu o campeão mundial de xadrez. Ele analisava duzentos milhões de posições por segundo. Mas só sabia jogar xadrez.
+
+A virada veio de outra ideia: em vez de escrever regras, mostrar milhões de exemplos e deixar a máquina aprender sozinha. A ideia era antiga, mas faltavam texto e computadores fortes. A internet trouxe o texto. As placas de vídeo trouxeram a força. Em dois mil e vinte e dois, veio o ChatGPT.
+
+E o teste de Tiúring? Em dois mil e vinte e cinco, pesquisadores fizeram o teste com pessoas reais. O GPT quatro ponto cinco foi apontado como humano em setenta e três por cento das conversas, mais do que os próprios humanos. A ELIZA, no mesmo teste, ficou em vinte e três por cento.
+
+Agora, o cuidado prático. Quando uma inteligência artificial parecer que entende você, lembre: parecer humana não é o mesmo que estar certa. Confira o que ela diz antes de confiar.
+
+Resumindo: Tiúring propôs julgar a máquina pela conversa. A ELIZA mostrou que a gente se engana fácil. E a inteligência artificial só decolou quando parou de seguir regras e passou a aprender com exemplos.
+
+Turno encerrado. Para entender a inteligência artificial por dentro, siga a página. A fábrica abre todo dia.

@@ -1,0 +1,19 @@
+Elon Musk mostrou o novo Tesla Roadster: vai de 0 a 100 em cerca de 1 segundo, anda de cabeça para baixo, salta por cima de 5 carros e dá um mortal no ar. Sem ninguém dirigindo.
+
+Musk pediu plateia ao vivo para provar que não era IA. Ironia: quem fez as manobras foi um computador.
+
+Por baixo, ventoinhas grudam o carro na pista com força de 2 vezes a gravidade. E 10 jatos de ar comprimido, com tecnologia da SpaceX, fazem ele saltar e girar.
+
+No ar, cada fração de segundo muda tudo. Nenhum humano acerta 10 jatos ao mesmo tempo.
+
+Então o computador repete um ciclo, muitas vezes por segundo: mede a inclinação, compara com a manobra planejada e dispara o jato que corrige. Igual aos foguetes da SpaceX pousando de pé.
+
+Para dirigir na rua, a IA da Tesla aprendeu com milhões de vídeos de motoristas. Mas ninguém tem milhões de vídeos de carros dando mortal.
+
+Por isso o Roadster vai ter só uma versão limitada do piloto automático. Sem dados, a IA não aprende.
+
+Musk disse que o carro será "senciente". Não é consciência: é um programa repetindo um movimento calculado.
+
+Ele chamou o Roadster de um dos últimos carros dirigidos por humanos. Mas a parte mais impressionante não teve humano nenhum.
+
+Siga a fábrica. Uma peça nova todo dia.

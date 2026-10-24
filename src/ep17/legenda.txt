@@ -1,0 +1,13 @@
+Uma IA achou duas falhas escondidas no PHP, e governos tiraram sites do ar. Em 90 segundos, você vai entender.
+
+O PHP roda por trás de uns 70% dos sites, inclusive quase todo WordPress.
+
+As falhas ganharam nota 9,2 de 10. Sem senha e sem login, basta mandar um pedido, e o site passa a rodar os comandos de quem ataca.
+
+Pesquisadores usaram o GPT-5.6 Sol, da OpenAI, para ler o código do PHP. E a IA achou o ponto fraco: quando um pedido gasta memória demais, o PHP para no meio, e deixa a arrumação pela metade. Um pedido sob medida aproveita essa bagunça para entrar.
+
+Os detalhes vazaram antes da correção. Agências dos Estados Unidos e do Reino Unido pediram: quem não consegue atualizar, tira do ar. A Holanda desligou até o site da própria agência de cibersegurança. Finlândia, França e Dinamarca também tiraram sites do governo do ar.
+
+Se você tem site, atualize o PHP do servidor. Atualizar só o WordPress não resolve. Se usa hospedagem, pergunte hoje ao suporte.
+
+Siga a fábrica. Uma peça nova todo dia.

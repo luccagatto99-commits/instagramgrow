@@ -1,0 +1,42 @@
+{
+  "name": "a-fabrica-reels",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "studio": "node scripts/lista-sfx.mjs && remotion studio",
+    "render:ep01": "node scripts/lista-sfx.mjs && remotion render Ep01 out/ep01/video.mp4",
+    "capa:ep01": "remotion still Capa01 out/ep01/capa.png",
+    "srt:ep01": "node scripts/gera-srt.mjs src/ep01/timing.json out/ep01/legendas.srt",
+    "render:ep02": "node scripts/lista-sfx.mjs && remotion render Ep02 out/ep02/video.mp4",
+    "srt:ep02": "node scripts/gera-srt.mjs src/ep02/timing.json out/ep02/legendas.srt",
+    "render:ep03": "node scripts/lista-sfx.mjs && remotion render Ep03 out/ep03/video.mp4",
+    "srt:ep03": "node scripts/gera-srt.mjs src/ep03/timing.json out/ep03/legendas.srt",
+    "render:ep04": "node scripts/lista-sfx.mjs && remotion render Ep04 out/ep04/video.mp4",
+    "srt:ep04": "node scripts/gera-srt.mjs src/ep04/timing.json out/ep04/legendas.srt",
+    "render:ep05": "node scripts/lista-sfx.mjs && remotion render Ep05 out/ep05/video.mp4",
+    "srt:ep05": "node scripts/gera-srt.mjs src/ep05/timing.json out/ep05/legendas.srt",
+    "render:ep07": "node scripts/lista-sfx.mjs && remotion render Ep07 out/ep07/video.mp4",
+    "srt:ep07": "node scripts/gera-srt.mjs src/ep07/timing.json out/ep07/legendas.srt",
+    "render:ep08": "node scripts/lista-sfx.mjs && remotion render Ep08 out/ep08/video.mp4",
+    "srt:ep08": "node scripts/gera-srt.mjs src/ep08/timing.json out/ep08/legendas.srt",
+    "render:ep09": "node scripts/lista-sfx.mjs && remotion render Ep09 out/ep09/video.mp4",
+    "srt:ep09": "node scripts/gera-srt.mjs src/ep09/timing.json out/ep09/legendas.srt",
+    "render:ep10": "node scripts/lista-sfx.mjs && remotion render Ep10 out/ep10/video.mp4",
+    "srt:ep10": "node scripts/gera-srt.mjs src/ep10/timing.json out/ep10/legendas.srt",
+    "render:ep11": "node scripts/lista-sfx.mjs && remotion render Ep11 out/ep11/video.mp4",
+    "srt:ep11": "node scripts/gera-srt.mjs src/ep11/timing.json out/ep11/legendas.srt"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.535",
+    "@remotion/google-fonts": "^4.0.535",
+    "gpt-tokenizer": "^4.0.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.535",
+    "simple-icons": "^13.21.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.31",
+    "typescript": "^7.0.2"
+  }
+}

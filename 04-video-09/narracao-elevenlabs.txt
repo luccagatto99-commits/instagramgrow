@@ -1,0 +1,17 @@
+O dono do ChatGPT vai fazer um robô com corpo de gente. Sam Altman, da OpenAI, confirmou o humanoide e quer que um dia todo mundo tenha um em casa.
+
+Mas como uma IA que só escreve texto aprende a mexer um corpo?
+
+Para o ChatGPT, tudo vira número, e ele prevê o próximo. Num robô, o movimento também vira número: mover o braço, girar o pulso, fechar a mão. Cada ação é escrita como uma sequência de números, igual a uma frase.
+
+O Google mostrou isso em dois mil e vinte e três. O modelo via a imagem da câmera e, em vez de palavras, respondia com números de movimento. Foi treinado com a internet e com meses de robôs trabalhando numa cozinha.
+
+O resultado: o robô entendia pedidos que nunca tinha treinado, como pegar um saco prestes a cair da mesa. O que ele aprendeu na internet virou movimento.
+
+Por isso o Altman diz que o mais importante não é o corpo. É o cérebro que faz o robô funcionar.
+
+A OpenAI já tentou isso: em dois mil e dezenove, ensinou uma mão robótica a montar um cubo mágico, e depois desistiu. Agora voltou, com vinte e sete vagas só para robótica.
+
+O próximo ChatGPT pode não responder na tela. Pode responder mexendo um braço.
+
+Siga a fábrica. Uma peça nova todo dia.

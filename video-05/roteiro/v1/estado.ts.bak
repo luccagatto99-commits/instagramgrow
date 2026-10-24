@@ -1,0 +1,166 @@
+// Linha do tempo da máquina de lavar (abertura frontal): tudo que acontece na cena sai daqui, em função do tempo (s).
+// Coordenadas: gabinete de x -1..1, y 0..2.8, z -1..1 (frente em +z); tanque e tambor deitados no eixo z.
+import { B, BE, T, clamp, janela, lerp, prog, saida, suave, entrada } from './tempo';
+
+export const COR = {
+  fundo: '#0E1A2B',
+  objeto: '#F4F1EA',
+  move: '#FF6B2C', // só o que se move: a água
+  rotulo: '#8FB8FF',
+  sombra: '#B5AE9C',
+  traco: '#0E1A2B',
+  escuro: '#2A3446',
+  roupa: '#D9D2C2',
+  concreto: '#A39D90',
+};
+
+export type V2 = [number, number];
+export type V3 = [number, number, number];
+
+// ---- medidas ----
+export const GAB = { w: 2.0, h: 2.8, d: 2.0 };
+export const EIXO: V3 = [0, 1.35, -0.05]; // centro do tanque/tambor
+export const TANQUE = { r: 0.86, z0: -0.78, z1: 0.68 };
+export const TAMBOR = { r: 0.76, z0: -0.7, z1: 0.6 };
+export const PORTA = { y: 1.35, r: 0.6, z: 1.03 };
+export const VALVULA: V3 = [0.6, 2.58, -0.8];
+export const GAVETA: V3 = [-0.55, 2.52, 0.75];
+export const PRESSO: V3 = [0.62, 2.5, 0.35]; // sensor de nível (pressostato)
+export const MOTOR: V3 = [0.42, 0.42, -0.62];
+export const POLIA_Z = -0.98;
+export const BOMBA: V3 = [0.55, 0.28, 0.62];
+export const CONCRETO: V3 = [0, 2.33, 0.35];
+
+// ---- eventos ----
+const ev = () => ({
+  concretoGancho: T(0, 'concreto') - 0.1,
+  paraGancho: T(0, 'Em') + 0.2,
+  tanque: T(1, 'tanque') - 0.15,
+  tambor: T(1, 'tambor') - 0.15,
+  roupa: T(1, 'roupa') - 0.2,
+  volta1: B(2) + 0.0,
+  valvula: T(2, 'válvula') - 0.15,
+  abre: T(2, 'abre') - 0.1,
+  gaveta: T(2, 'gaveta') - 0.15,
+  tubinho: T(2, 'tubinho') - 0.15,
+  avisa: T(2, 'avisa') - 0.1,
+  motor: T(3, 'motor') - 0.15,
+  correia: T(3, 'correia') - 0.3,
+  pas: T(3, 'pás') - 0.15,
+  batida: T(3, 'batida') - 0.1,
+  bomba: T(4, 'bomba') - 0.15,
+  tira: T(4, 'tira') - 0.1,
+  gira: T(4, 'gira') - 0.2,
+  joga: T(4, 'jogada') - 0.4,
+  fimCentrifuga: BE(4) + 0.3,
+  embolada: T(5, 'embolada') - 0.3,
+  tremer: T(5, 'tremer') - 0.25,
+  andar: T(5, 'andar') - 0.15,
+  bloco: T(5, 'bloco') - 0.15,
+  molas: T(5, 'molas') - 0.15,
+  fim: B(6),
+});
+let EV: ReturnType<typeof ev> | null = null;
+export const E = () => (EV ??= ev());
+
+export type Estado = ReturnType<typeof estado>;
+
+/** ângulo do tambor: integra a velocidade (rad/s) em passos de 1/60 s (determinístico) */
+const velTambor = (t: number) => {
+  const e = E();
+  // gancho: centrifugando forte e parando
+  const gancho = 14 * (1 - prog(t, e.paraGancho, 1.2));
+  // lavagem: lento, de vai e volta
+  const lav = t > e.correia && t < e.bomba ? 3.2 * prog(t, e.correia, 0.6) * (1 - prog(t, e.bomba - 0.6, 0.6)) : 0;
+  // centrifugação
+  const cen = 16 * prog(t, e.gira, 1.6, entrada) * (1 - prog(t, e.fimCentrifuga, 0.8));
+  // demonstração do desequilíbrio
+  const deseq = 13 * prog(t, e.embolada, 1.0) * (1 - prog(t, e.fim - 0.5, 1.0));
+  return Math.max(gancho, lav, cen, deseq);
+};
+const PASSO = 1 / 60;
+let ANG: Float64Array | null = null;
+export const anguloTambor = (t: number) => {
+  if (!ANG) {
+    const n = Math.ceil(120 / PASSO);
+    ANG = new Float64Array(n + 1);
+    for (let i = 1; i <= n; i++) ANG[i] = ANG[i - 1] + velTambor(i * PASSO) * PASSO;
+  }
+  const i = Math.min(ANG.length - 1, Math.max(0, Math.floor(t / PASSO)));
+  return ANG[i];
+};
+
+export const estado = (t: number) => {
+  const e = E();
+  const phi = anguloTambor(t);
+  const vel = velTambor(t);
+
+  // --- gancho: entra girando e tremendo; no "concreto" vira raio-x ---
+  const entra = prog(t, 0, 1.6, saida);
+  const giroGab = (1 - entra) * Math.PI * 2;
+  const xEntra = (1 - entra) * 5;
+  const raioX = Math.max(prog(t, e.concretoGancho, 0.25), prog(t, e.paraGancho + 1.6, 1.0)) * (1 - prog(t, e.fim - 0.3, 1.0));
+  const destConcretoGancho = janela(t, e.concretoGancho, e.paraGancho + 1.0, 0.1, 0.5);
+
+  // --- vista explodida ---
+  const volta = prog(t, e.volta1, 0.9);
+  const saiTanque = prog(t, e.tanque, 0.8, saida) * (1 - volta);
+  const saiTambor = prog(t, e.tambor, 0.8, saida) * (1 - volta);
+  const destTanque = janela(t, e.tanque, e.tambor + 0.2, 0.2, 0.3);
+  const destTambor = janela(t, e.tambor, e.volta1 + 0.3, 0.2, 0.3);
+  const roupas = Math.max(prog(t, e.roupa, 0.5), t < e.paraGancho + 1.5 ? 1 : 0);
+
+  // --- água entrando ---
+  const fluxoEntrada = janela(t, e.abre, e.avisa + 0.2, 0.2, 0.3);
+  const enche = prog(t, e.abre + 0.4, e.avisa - e.abre - 0.4, suave);
+  const esvazia = prog(t, e.tira, 1.8, suave);
+  const nivel = enche * (1 - esvazia); // 0 = vazio, 1 = cheio (um terço do tanque)
+  const fluxoBomba = janela(t, e.tira, e.tira + 2.2, 0.2, 0.4);
+  const destValvula = janela(t, e.valvula, e.gaveta, 0.2, 0.3);
+  const destGaveta = janela(t, e.gaveta, e.tubinho, 0.2, 0.3);
+  const destTubo = janela(t, e.tubinho, B(3) - 0.2, 0.2, 0.3);
+  const avisa = janela(t, e.avisa, B(3) - 0.2, 0.1, 0.3);
+
+  // --- lavagem ---
+  const destMotor = janela(t, e.motor, e.correia + 0.2, 0.2, 0.3);
+  const destCorreia = janela(t, e.correia, e.pas, 0.2, 0.3);
+  const destPas = janela(t, e.pas, e.batida + 0.8, 0.2, 0.3);
+  const lavando = janela(t, e.correia, e.gira, 0.3, 0.3);
+  const respingo = janela(t, e.pas, e.bomba, 0.3, 0.3);
+
+  // --- centrifugação ---
+  const destBomba = janela(t, e.bomba, e.gira, 0.2, 0.3);
+  const centrifuga = janela(t, e.gira + 0.4, e.fimCentrifuga + 0.5, 0.6, 0.6);
+  const gotas = janela(t, e.joga, e.fimCentrifuga + 0.3, 0.3, 0.5);
+
+  // --- concreto e desequilíbrio ---
+  const tiraConcreto = prog(t, e.embolada - 0.2, 0.7, saida) * (1 - prog(t, e.bloco, 0.6, entrada));
+  const embolada = prog(t, e.embolada, 0.6) * (1 - prog(t, e.fim - 0.5, 1.0));
+  const forte = prog(t, e.tremer, 0.4) * (1 - prog(t, e.bloco + 0.4, 0.8));
+  const fraco = prog(t, e.bloco + 0.4, 0.8) * (1 - prog(t, e.fim - 0.4, 0.8));
+  const destConcreto = Math.max(destConcretoGancho, janela(t, e.bloco, e.molas, 0.2, 0.3));
+  const destMolas = janela(t, e.molas, e.fim + 0.2, 0.2, 0.3);
+
+  // tremor do tanque (sobre as molas) e da máquina inteira
+  const vib = (a: number, f: number, s = 0) => a * Math.sin(t * f + s);
+  const tremeGancho = 0.06 * (1 - prog(t, e.paraGancho, 1.0));
+  const tanqueTreme = tremeGancho + 0.07 * centrifuga + 0.16 * forte + 0.03 * fraco;
+  const tanqueOff: V3 = [vib(tanqueTreme, 41), vib(tanqueTreme * 0.8, 37, 1), 0];
+  const maqTreme = tremeGancho * 0.5 + 0.06 * forte;
+  // "anda pela casa": pulinhos para o lado
+  const andar = prog(t, e.andar, 2.0) * (1 - prog(t, e.bloco + 0.2, 1.0, suave));
+  const xAndar = 0.5 * andar;
+  const pulo = forte > 0.05 && t > e.andar ? Math.abs(Math.sin(t * 13)) * 0.05 * forte : 0;
+  const maqOff: V3 = [xEntra + xAndar + vib(maqTreme, 47), pulo + Math.abs(vib(maqTreme * 0.6, 53)), vib(maqTreme * 0.5, 43, 2)];
+
+  return {
+    t, phi, vel, giroGab, raioX, maqOff, tanqueOff,
+    saiTanque, saiTambor, destTanque, destTambor, roupas,
+    fluxoEntrada, nivel, fluxoBomba, destValvula, destGaveta, destTubo, avisa,
+    destMotor, destCorreia, destPas, lavando, respingo,
+    destBomba, centrifuga, gotas,
+    tiraConcreto, embolada, destConcreto, destMolas,
+  };
+};
+
+export { clamp, lerp, BE };

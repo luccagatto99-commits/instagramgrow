@@ -1,0 +1,17 @@
+Um grupo de cientistas achou que ia criar a inteligência artificial em um verão. Erraram por quase setenta anos.
+
+Tudo começa com Alan Turing, que ajudou a quebrar os códigos nazistas na guerra. Em mil novecentos e cinquenta, ele propôs um teste: se você conversa com uma máquina e não percebe que é máquina, ela é inteligente.
+
+Seis anos depois, cientistas se reuniram para resolver isso em um verão. E foi ali que nasceu o nome "inteligência artificial".
+
+Um dos pais da área prometeu: em vinte anos, as máquinas fariam qualquer trabalho humano.
+
+Em mil novecentos e sessenta e seis, surgiu a ELIZA. Ela não entendia nada: você escrevia "estou triste", ela respondia "por que você está triste?". A secretária do criador acompanhou a construção e sabia que era só isso. Mesmo assim, depois de poucas mensagens, pediu para ele sair da sala. Queria conversar a sós com a máquina. Isso ganhou nome: efeito ELIZA. A gente enxerga inteligência onde só existe um truque.
+
+As promessas falharam, o dinheiro sumiu e veio o "inverno da IA".
+
+Em mil novecentos e noventa e sete, um computador venceu o campeão mundial de xadrez. Em dois mil e vinte e dois, veio o ChatGPT.
+
+Hoje muita gente conversa com uma IA sem perceber que é máquina. Exatamente o teste que Turing imaginou.
+
+Siga a fábrica. Uma peça nova todo dia.

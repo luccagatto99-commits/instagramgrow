@@ -1,0 +1,15 @@
+Sabe como a inteligência artificial cria uma imagem? Ela não desenha nada. Ela começa com uma tela cheia de pontos aleatórios e vai tirando tudo o que não faz parte da imagem. Como um escultor tirando pedra até aparecer a estátua.
+
+Mas como ela sabe o que tirar? Isso vem do treino.
+
+Os engenheiros pegam milhões de fotos com descrição, por exemplo: um cachorro na praia. Aí estragam cada foto aos poucos, colocando pontos aleatórios por cima, até ela sumir completamente.
+
+A inteligência artificial treina fazendo o contrário. Ela recebe a foto estragada e tenta adivinhar quais pontos foram colocados. Erra, corrige e repete isso milhões de vezes, até aprender a limpar qualquer imagem.
+
+Quando você pede uma imagem, ela faz esse mesmo processo, só que começando de pontos totalmente aleatórios. O seu texto vira números e guia cada passo: a cada rodada, ela tira os pontos que não parecem cachorro nem praia. Em algumas dezenas de rodadas, aparece uma foto que nunca existiu.
+
+Por isso as primeiras inteligências artificiais erravam tanto as mãos. Elas não sabem o que é uma mão. Só sabem como os pontos de uma mão costumam ficar.
+
+A inteligência artificial não copia fotos da internet. Ela parte do nada e vai limpando até parecer real.
+
+Siga a fábrica. Uma peça nova todo dia.

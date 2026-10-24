@@ -1,0 +1,15 @@
+Você já se perguntou por que alguém segurando uma foto sua na frente do iPhone não consegue desbloquear, mas ele te reconhece até no escuro? Em noventa segundos, você vai entender.
+
+Em cima da tela tem um projetor que joga mais de trinta mil pontinhos de luz infravermelha no seu rosto. Você não vê nada: o olho humano não enxerga essa luz.
+
+Uma câmera infravermelha fotografa esses pontos. Onde o nariz está mais perto, eles ficam de um jeito. Onde a bochecha está mais longe, ficam de outro. Assim o celular monta um mapa em 3D do seu rosto.
+
+Aí entra a IA. Um chip de inteligência artificial dentro do celular transforma esse mapa numa sequência de números, uma espécie de assinatura do seu rosto. E compara com a assinatura que ele guardou quando você cadastrou o Face ID.
+
+Se os números forem parecidos o bastante, o celular desbloqueia. A Apple diz que a chance de um estranho conseguir é menor que uma em um milhão.
+
+E é por isso que a foto não funciona: ela é plana, e o Face ID precisa de profundidade. E como a IA atualiza a assinatura, ele funciona de óculos ou com barba nova.
+
+E essa assinatura nunca sai do seu celular. Nem a Apple tem acesso a ela.
+
+Siga a fábrica. Uma peça nova todo dia.

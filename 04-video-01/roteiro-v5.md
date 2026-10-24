@@ -1,0 +1,23 @@
+# Ep01 v5 — roteiro mais didático (aprovado)
+
+1. GANCHO — A inteligência artificial consegue passar em prova de medicina. Mas, se você perguntar quantas letras R existem na palavra morango, ela pode errar. Por que isso acontece?
+
+2. PROMESSA — Neste vídeo, você vai entender três coisas. Primeiro: como a inteligência artificial lê o que você escreve. Segundo: o que é um token. Terceiro: por que o morango confunde a inteligência artificial. Acompanhe até o final.
+
+3. NÚMEROS — Um computador não entende letras. Ele só trabalha com números: soma, multiplica, compara. Por isso, a inteligência artificial precisa transformar o seu texto em números.
+
+4. O PROBLEMA — A primeira ideia seria dar um número para cada letra. Funciona, mas a sequência fica longa demais. A segunda ideia seria dar um número para cada palavra. Também não funciona: existem plurais, verbos conjugados, erros de digitação e palavras novas. A lista nunca acabaria.
+
+5. A SOLUÇÃO — A solução foi dividir o texto em pedaços de palavra. Um programa leu uma enorme quantidade de textos e guardou os pedaços que mais se repetem. Palavras comuns viram um pedaço só. Palavras raras são montadas com pedaços menores, como peças de encaixe. No ChatGPT, essa lista tem cerca de duzentos mil pedaços. Cada pedaço é chamado de token.
+
+6. EXEMPLO — A pergunta "Qual a capital do Brasil?" vira seis tokens. Repare: o espaço antes da palavra vai junto. Agora, a palavra "coração". Ela é dividida em "c" e "oração". Não é por sílaba. Acontece porque "oração" já está na lista como um pedaço frequente.
+
+7. O NÚMERO — Cada token é trocado por um número fixo, como o código de barras de um produto. O token "Brasil", com o espaço antes, é sempre o número 15278. Só esses números entram na inteligência artificial. As letras ficam de fora.
+
+8. A VIRADA — Agora, o morango. Ele é dividido em dois tokens: "mor" e "ango". A inteligência artificial recebe só dois números. Imagine duas caixas fechadas, cada uma com uma etiqueta. Alguém pergunta quantos R existem dentro delas, mas você só vê as etiquetas. É essa a situação dela. O erro não é falta de inteligência. Ela simplesmente não enxerga as letras.
+
+9. A DICA — Por isso, o jeito mais seguro de acertar é separar letra por letra. Quando ela escreve m, o, r, a, n, g, o, cada letra vira um token, e contar fica fácil. Na prática: quando precisar de precisão com letras, peça para ela soletrar a palavra antes.
+
+10. RESUMO — Resumindo: a inteligência artificial não lê letras, ela lê números. Um token é um pedaço de texto que recebe um número fixo. E o morango confunde porque as letras R ficam escondidas dentro dos tokens.
+
+11. FECHAMENTO — Turno encerrado. Para entender a inteligência artificial por dentro, siga a página. A fábrica abre todo dia.

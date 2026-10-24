@@ -1,0 +1,21 @@
+Em 2017, oito pesquisadores publicaram um artigo que mudou a IA. O ChatGPT que você usa hoje nasceu dessa ideia. E o curioso é que ela foi inventada no Google, e não na OpenAI.
+
+Neste vídeo, você vai entender três coisas. Primeiro: o que significa cada letra do GPT. Segundo: a invenção de 2017 que mudou a IA. Terceiro: um cuidado prático com textos longos. Acompanhe até o final.
+
+GPT é uma sigla em inglês. O G vem de generativo, porque gera texto. O P vem de pré-treinado, porque leu uma quantidade enorme de texto antes. E o T vem de Transformer, a peça que mudou tudo.
+
+Antes de 2017, a IA lia uma palavra de cada vez, em fila. Imagine ler um livro guardando só um resumo curto de tudo que veio antes. Era lento. E, em textos longos, quando chegava ao fim, o começo já tinha se perdido.
+
+Foi aí que entrou o artigo de 2017. O título era "Atenção é tudo de que você precisa". A ideia foi parar de ler em fila. O Transformer lê a frase inteira de uma vez, e cada palavra olha para todas as outras. Na frase "o gato fugiu porque ele estava com medo", a palavra "ele" olha para todas e descobre que se refere ao gato. Esse olhar se chama atenção.
+
+Por que isso foi tão importante? Sem a fila, as contas podem ser feitas todas ao mesmo tempo, e a placa de vídeo é feita justamente para isso. Treinar ficou muito mais rápido, com muito mais texto.
+
+Por dentro, o Transformer repete duas etapas. Primeiro, cada palavra junta o contexto das outras: é assim que "ele" passa a saber que é o gato. Depois, todas as palavras consultam, ao mesmo tempo, o que a IA aprendeu no treino. Por exemplo: gato é um animal que foge quando tem medo. Essas duas etapas formam uma camada, e cada camada entende a frase um pouco melhor. O GPT-3 tinha 96 camadas.
+
+Agora, a ironia. O Google inventou o Transformer, mas quem lançou o primeiro GPT, em 2018, foi a OpenAI. E todos os oito autores do artigo acabaram saindo do Google. Hoje, o ChatGPT e os concorrentes dele usam a mesma ideia por baixo.
+
+Agora, o cuidado prático. Em textos muito longos, a IA costuma aproveitar melhor o começo e o fim do que o meio. Um estudo de 2023 mostrou isso. Então, quando mandar um texto grande, coloque o seu pedido no começo e repita no final.
+
+Resumindo: GPT é um Transformer generativo pré-treinado. O Transformer lê tudo de uma vez e usa a atenção para ligar as palavras. E, em textos longos, o seu pedido vai no começo e no final.
+
+Turno encerrado. Para entender a IA por dentro, siga a página. A fábrica abre todo dia.

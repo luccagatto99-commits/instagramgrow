@@ -1,0 +1,17 @@
+Em 90 segundos, você vai entender como uma impressora 3D funciona por dentro.
+
+Tudo começa no computador. Um programa corta o desenho em camadas bem finas, e diz para a impressora o caminho de cada uma.
+
+Com esse caminho em mãos, ela começa pelo carretel. Ele guarda um fio de plástico enrolado, e é esse fio que vai virar a peça.
+
+O fio é puxado por um motor com duas engrenagens. Elas apertam o plástico e empurram ele, devagar, por um tubo até o bico.
+
+Chegando no bico, o fio passa por um bloco de metal que esquenta a uns 200 graus. Ali o plástico derrete, e sai por um furo menor que meio milímetro.
+
+Enquanto o plástico sai, o bico anda para os lados e a mesa vai para frente e para trás. Juntos, eles seguem aquele caminho do computador e desenham a primeira camada. Um ventilador esfria a linha na hora, e ela endurece.
+
+Quando essa camada termina, o bico sobe um pouquinho e desenha a próxima por cima. E assim, camada por camada, a peça vai crescendo.
+
+E o mais curioso: ela quase nunca é maciça. Por dentro, o caminho forma um padrão de favo de mel, que deixa a peça leve e forte ao mesmo tempo.
+
+Agora você sabe como uma impressora 3D funciona por dentro. Segue a página para ver o próximo objeto aberto ao meio.

@@ -1,0 +1,13 @@
+Você já se perguntou como um homem paralisado jogou xadrez no computador só com o pensamento? Em noventa segundos, você vai entender.
+
+Em 2016, num acidente na água, Noland Arbaugh lesionou a medula e ficou paralisado dos ombros para baixo. Em janeiro de 2024, ele virou o primeiro paciente da Neuralink, a empresa de chips cerebrais do Elon Musk.
+
+O chip tem o tamanho de uma moeda e fica encaixado no crânio. Dele saem sessenta e quatro fios mais finos que um fio de cabelo, com mais de mil eletrodos. Quem costura esses fios no cérebro é um robô.
+
+Quando você pensa em mexer a mão, os neurônios da região do movimento disparam pequenos sinais elétricos. Mesmo com a medula lesionada, o cérebro continua mandando o comando. Os eletrodos escutam esses disparos.
+
+Só que o que chega é uma bagunça: centenas de neurônios disparando ao mesmo tempo. Aí entra a IA. Noland imaginou mover o cursor, e o modelo aprendeu quais padrões significam esquerda, direita e clique. Cada cérebro tem o seu jeito, e a IA aprende o dele.
+
+Em março de 2024, ele apareceu ao vivo jogando xadrez. Hoje a Neuralink já fala em dezenas de pacientes, controlando computador e até cadeira de rodas com o pensamento.
+
+Siga a fábrica. Uma peça nova todo dia.

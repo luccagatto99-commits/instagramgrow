@@ -1,0 +1,1 @@
+export { Carimbadora } from '../components';

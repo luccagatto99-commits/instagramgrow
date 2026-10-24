@@ -1,0 +1,17 @@
+Você usa o ChatGPT todo dia. Mas sabe o que significa o "GPT"? E sabia que a peça mais importante dele foi inventada pelo Google?
+
+GPT é uma sigla em inglês: Transformador Generativo Pré-treinado. Generativo, porque gera texto. Pré-treinado, porque leu uma montanha de texto antes de você usar. E o T, de Transformer, a peça que mudou a história da IA.
+
+Antes de dois mil e dezessete, as IAs de linguagem liam uma palavra de cada vez, em fila. Era lento. E em textos longos, quando chegava no fim, já tinha esquecido boa parte do começo.
+
+Em dois mil e dezessete, oito pesquisadores do Google publicaram um artigo chamado "Atenção é tudo que você precisa". O objetivo era só melhorar tradução automática. A ideia: parar de ler em fila. Ler a frase inteira de uma vez, com cada palavra olhando pra todas as outras pra descobrir quais importam. Esse olhar se chama atenção.
+
+Por que isso foi tão grande? Sem a fila, dá pra fazer todas as contas ao mesmo tempo. E a placa de vídeo é perfeita pra isso. Treinar ficou muito mais rápido, e deu pra treinar com muito mais texto.
+
+Por dentro, um Transformer é uma peça que se repete. Primeiro as palavras trocam informação entre si. Depois, cada uma é processada sozinha. E essa peça é empilhada dezenas de vezes. O GPT três tinha noventa e seis andares.
+
+Agora a ironia: o Google inventou, mas quem lançou o primeiro GPT, em dois mil e dezoito, foi a OpenAI. E os oito autores do artigo acabaram saindo do Google pra outras empresas de IA.
+
+Hoje, ChatGPT, Claude e Gemini funcionam em cima da mesma ideia. Por baixo de todos, tem um Transformer.
+
+Turno encerrado. Cansado de só colar prompt e não aprender nada? Segue. A fábrica abre toda semana.

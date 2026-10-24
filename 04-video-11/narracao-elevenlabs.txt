@@ -1,0 +1,13 @@
+Sabe como a IA cria um vídeo? Em noventa segundos, você vai entender. Ela começa com uma tela cheia de pontos aleatórios e vai limpando aos poucos, até aparecer a cena que você pediu.
+
+Ela aprendeu isso vendo milhões de vídeos. No treino, cada vídeo era coberto de pontos até sumir, e a IA tinha que descobrir como limpar de volta. Depois de milhões de repetições, ela ficou boa nisso.
+
+Só que vídeo tem um problema a mais. Dez segundos de vídeo são cerca de trezentas imagens seguidas. Se a IA limpasse cada uma separada, o cachorro mudaria de cor a cada imagem e a praia ficaria tremendo.
+
+Por isso, ela limpa todas as imagens ao mesmo tempo. E cada pedaço da cena olha para os outros: a orelha do cachorro em um momento olha para a orelha no momento seguinte, para continuar no mesmo lugar.
+
+É assim que o movimento sai contínuo. Vendo tantos vídeos, ela aprendeu como as coisas costumam se mexer: a onda que quebra, o pelo que balança com o vento.
+
+E é por isso que ela ainda erra a física. Às vezes um copo atravessa a mesa, ou uma pessoa ganha um braço a mais. Ela aprendeu como o movimento parece, sem aprender as regras que fazem ele acontecer.
+
+Siga a fábrica. Uma peça nova todo dia.

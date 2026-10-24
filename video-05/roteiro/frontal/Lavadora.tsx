@@ -1,0 +1,344 @@
+// Máquina de lavar de abertura frontal: gabinete (vira raio-x), porta, tanque, tambor com furos e pás, roupas,
+// água (laranja), válvula + gaveta, tubinho de ar (sensor de nível), motor + correia, bomba, molas, amortecedores
+// e o bloco de concreto.
+import { useMemo } from 'react';
+import * as THREE from 'three';
+import {
+  BOMBA, CONCRETO, COR, EIXO, Estado, GAB, GAVETA, MOTOR, POLIA_Z, PORTA, PRESSO, TAMBOR, TANQUE, V3, VALVULA,
+} from '../estado';
+import { Contorno, Peca, brilho, toon } from './base';
+import { Fluxo, Haste, Pistao } from './pecas';
+import { aleatorio, clamp } from '../tempo';
+
+const cilZ = (r: number, h: number, aberto = false, seg = 48) => new THREE.CylinderGeometry(r, r, h, seg, 1, aberto).rotateX(Math.PI / 2);
+const add = (a: V3, b: V3): V3 => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
+const v3 = (p: V3) => new THREE.Vector3(...p);
+
+/** mola: hélice entre dois pontos */
+const Mola: React.FC<{ a: V3; b: V3; quente: number; mat: THREE.Material }> = ({ a, b, quente, mat }) => {
+  const geo = useMemo(() => new THREE.BufferGeometry(), []);
+  const A = v3(a), Bv = v3(b);
+  const d = Bv.clone().sub(A);
+  const l = d.length();
+  const u = d.clone().normalize();
+  const p1 = new THREE.Vector3(1, 0, 0).cross(u).normalize();
+  const p2 = u.clone().cross(p1).normalize();
+  const pts: THREE.Vector3[] = [];
+  const voltas = 9, n = 140;
+  for (let i = 0; i <= n; i++) {
+    const s = i / n;
+    const ang = s * voltas * Math.PI * 2;
+    pts.push(A.clone().add(u.clone().multiplyScalar(s * l)).add(p1.clone().multiplyScalar(Math.cos(ang) * 0.07)).add(p2.clone().multiplyScalar(Math.sin(ang) * 0.07)));
+  }
+  const tubo = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 280, 0.014, 6);
+  geo.copy(tubo);
+  tubo.dispose();
+  return <mesh geometry={geo} material={quente > 0.5 ? brilhoMola : mat} />;
+};
+const brilhoMola = brilho(COR.move, 2.2);
+
+/** água no tanque: segmento do círculo abaixo do nível, esticado no comprimento do tanque */
+const Agua: React.FC<{ nivel: number; inclina: number; mat: THREE.Material }> = ({ nivel, inclina, mat }) => {
+  const nq = Math.round(nivel * 60) / 60;
+  const geo = useMemo(() => {
+    if (nq < 0.01) return null;
+    const r = TAMBOR.r - 0.02;
+    const h = -r + nq * r * 0.75; // até pouco abaixo do meio
+    const a0 = Math.acos(clamp(h / r, -1, 1));
+    const s = new THREE.Shape();
+    const n = 40;
+    for (let i = 0; i <= n; i++) {
+      const a = -Math.PI / 2 - (Math.PI / 2 - a0) + (i / n) * 2 * (Math.PI / 2 - a0);
+      const x = Math.cos(a) * r, y = Math.sin(a) * r;
+      if (i === 0) s.moveTo(x, y); else s.lineTo(x, y);
+    }
+    s.closePath();
+    return new THREE.ExtrudeGeometry(s, { depth: TAMBOR.z1 - TAMBOR.z0 - 0.06, bevelEnabled: false }).translate(0, 0, TAMBOR.z0 + 0.03);
+  }, [nq]);
+  if (!geo) return null;
+  return (
+    <group rotation={[0, 0, inclina]}>
+      <mesh geometry={geo} material={mat} />
+    </group>
+  );
+};
+
+const N_ROUPA = 7;
+/** roupas: sobem presas às pás e caem; na centrifugação ficam coladas na parede; emboladas de um lado no fim */
+const Roupas: React.FC<{ e: Estado; mats: THREE.Material[] }> = ({ e, mats }) => {
+  const dados = useMemo(() => {
+    const r = aleatorio(7);
+    return Array.from({ length: N_ROUPA }, (_, i) => ({ off: i / N_ROUPA + r() * 0.05, z: -0.45 + r() * 0.9, s: [0.22 + r() * 0.1, 0.12 + r() * 0.06, 0.2 + r() * 0.12] as V3, rot: r() * 6 }));
+  }, []);
+  const g = useMemo(() => new THREE.SphereGeometry(1, 16, 12), []);
+  if (e.roupas < 0.01) return null;
+  const R = TAMBOR.r - 0.16;
+  return (
+    <>
+      {dados.map((d, i) => {
+        // ciclo de tombo (lavagem): sobe pela parede até ~45° e cai
+        const u = (((e.phi / (Math.PI * 2)) * 1.0 + d.off) % 1 + 1) % 1;
+        let a: number, rr: number;
+        if (u < 0.55) { a = -Math.PI / 2 + (u / 0.55) * (Math.PI * 0.78); rr = R; }
+        else {
+          const q = (u - 0.55) / 0.45;
+          const a1 = -Math.PI / 2 + Math.PI * 0.78;
+          const x0 = Math.cos(a1) * R, y0 = Math.sin(a1) * R;
+          const x = x0 * (1 - q), y = y0 - (y0 + R * 0.95) * q * q;
+          a = Math.atan2(y, x); rr = Math.hypot(x, y);
+        }
+        // na centrifugação: presas na parede girando junto
+        const pres = Math.max(e.centrifuga, e.vel > 9 ? 1 : 0);
+        const ac = e.phi + d.off * Math.PI * 2;
+        // embolada: todas de um lado (giram juntas)
+        const ae = e.phi + d.off * 0.6;
+        let ang = a, raio = rr;
+        if (pres > 0.5) { ang = ac; raio = TAMBOR.r - 0.12; }
+        if (e.embolada > 0.5) { ang = ae; raio = TAMBOR.r - 0.14; }
+        const sc = i < e.nRoupas ? 1 : 0;
+        const parada = 1 - Math.min(1, Math.max(e.lavando, e.centrifuga, e.embolada) * 3);
+        if (parada > 0.5) {
+          const ang0 = -Math.PI / 2 + (i - 3) * 0.32;
+          ang = ang0; raio = TAMBOR.r - 0.22 - (i % 2) * 0.12;
+        }
+        return (
+          <group key={i} position={[Math.cos(ang) * raio, Math.sin(ang) * raio, d.z]} rotation={[d.rot, d.rot * 0.7, ang]} scale={[d.s[0] * sc, d.s[1] * sc, d.s[2] * sc]}>
+            <mesh geometry={g} material={mats[i % mats.length]} />
+          </group>
+        );
+      })}
+    </>
+  );
+};
+
+const N_GOTA = 70;
+/** gotas: na centrifugação saem pelos furos e escorrem pela parede do tanque */
+const Gotas: React.FC<{ e: Estado }> = ({ e }) => {
+  const dados = useMemo(() => {
+    const r = aleatorio(17);
+    return Array.from({ length: N_GOTA }, () => ({ a: r() * Math.PI * 2, z: TAMBOR.z0 + 0.1 + r() * (TAMBOR.z1 - TAMBOR.z0 - 0.2), f: r(), v: 0.8 + r() * 0.8 }));
+  }, []);
+  const inst = useMemo(() => {
+    const im = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 8, 6), brilho(COR.move, 2.3), N_GOTA);
+    im.frustumCulled = false;
+    return im;
+  }, []);
+  const o = useMemo(() => new THREE.Object3D(), []);
+  inst.visible = e.gotas > 0.01 || e.respingo > 0.01;
+  (inst.material as THREE.MeshBasicMaterial).opacity = Math.max(e.gotas, e.respingo * 0.8);
+  dados.forEach((d, i) => {
+    const u = (d.f + e.t * d.v * 1.3) % 1;
+    if (e.gotas > 0.01) {
+      const a = d.a + e.phi * 0.2;
+      const r = TAMBOR.r + u * (TANQUE.r - TAMBOR.r + 0.02);
+      o.position.set(Math.cos(a) * r, Math.sin(a) * r - u * u * 0.1, d.z);
+      o.scale.setScalar(0.022 * (1 - u * 0.4));
+    } else {
+      // respingos quando a roupa cai na água
+      const a = -Math.PI / 2 + (d.a - Math.PI) * 0.35;
+      const r = TAMBOR.r * 0.55;
+      o.position.set(Math.cos(a) * r * (0.6 + u * 0.5), -r + 0.05 + Math.sin(u * Math.PI) * 0.35, d.z);
+      o.scale.setScalar(0.018 * Math.sin(u * Math.PI));
+    }
+    o.updateMatrix();
+    inst.setMatrixAt(i, o.matrix);
+  });
+  inst.instanceMatrix.needsUpdate = true;
+  return <primitive object={inst} />;
+};
+
+/** caminhos dos canos (no referencial do gabinete) */
+const ENTRADA = new THREE.CatmullRomCurve3([
+  [VALVULA[0], VALVULA[1], VALVULA[2] + 0.1], [0.3, 2.65, -0.2], [GAVETA[0] + 0.15, GAVETA[1] + 0.05, GAVETA[2] - 0.2],
+  [GAVETA[0], GAVETA[1] - 0.05, GAVETA[2] - 0.1], [-0.45, 2.15, 0.45], [-0.3, 1.9, 0.3],
+].map((p) => v3(p as V3)));
+const SAIDA = new THREE.CatmullRomCurve3([
+  [0.0, 0.5, 0.3], [0.25, 0.3, 0.55], [BOMBA[0], BOMBA[1], BOMBA[2]], [0.85, 0.3, 0.1], [0.88, 0.6, -0.9], [0.9, 0.9, -1.5],
+].map((p) => v3(p as V3)));
+const AR = new THREE.CatmullRomCurve3([[PRESSO[0], PRESSO[1] - 0.08, PRESSO[2]], [0.8, 1.6, 0.35], [0.78, 0.7, 0.3], [0.45, 0.5, 0.25]].map((p) => v3(p as V3)));
+
+export const Lavadora: React.FC<{ e: Estado }> = ({ e }) => {
+  const g = useMemo(() => ({
+    gab: new THREE.BoxGeometry(GAB.w, GAB.h, GAB.d),
+    aro: new THREE.TorusGeometry(PORTA.r, 0.09, 14, 56),
+    vidro: new THREE.CircleGeometry(PORTA.r, 48),
+    botao: cilZ(0.11, 0.08),
+    visor: new THREE.BoxGeometry(0.5, 0.16, 0.04),
+    tanque: cilZ(TANQUE.r, TANQUE.z1 - TANQUE.z0, true, 56),
+    fundoTanque: new THREE.CircleGeometry(TANQUE.r, 48),
+    tambor: cilZ(TAMBOR.r, TAMBOR.z1 - TAMBOR.z0, true, 56),
+    furo: new THREE.CircleGeometry(0.03, 10),
+    pa: new THREE.BoxGeometry(0.12, 0.16, TAMBOR.z1 - TAMBOR.z0 - 0.12),
+    polia: cilZ(0.62, 0.06),
+    poliaMotor: cilZ(0.1, 0.1),
+    motor: cilZ(0.22, 0.48),
+    concreto: new THREE.BoxGeometry(1.2, 0.3, 0.42),
+    valvula: new THREE.BoxGeometry(0.22, 0.18, 0.22),
+    gaveta: new THREE.BoxGeometry(0.62, 0.22, 0.5),
+    presso: cilZ(0.13, 0.08),
+    bomba: cilZ(0.15, 0.28),
+    cano: new THREE.TubeGeometry(ENTRADA, 80, 0.035, 8),
+    canoSaida: new THREE.TubeGeometry(SAIDA, 80, 0.045, 8),
+    canoAr: new THREE.TubeGeometry(AR, 60, 0.022, 8),
+    pe: new THREE.BoxGeometry(0.2, 0.08, 0.2),
+  }), []);
+  const m = useMemo(() => ({
+    gab: toon(COR.objeto, { transparent: true }),
+    objeto: toon(COR.objeto),
+    metal: toon('#DAD6CD', { side: THREE.DoubleSide }),
+    tanque: toon(COR.sombra, { transparent: true, side: THREE.DoubleSide }),
+    escuro: toon(COR.escuro),
+    vidro: new THREE.MeshBasicMaterial({ color: COR.rotulo, transparent: true, opacity: 0.18, depthWrite: false }),
+    agua: (() => { const a = brilho(COR.move, 1.25); a.opacity = 0.78; a.depthWrite = false; return a; })(),
+    concreto: toon(COR.concreto, { transparent: true }),
+    furo: new THREE.MeshBasicMaterial({ color: COR.escuro, side: THREE.DoubleSide }),
+    quente: brilho(COR.move, 2.4),
+    luz: brilho(COR.rotulo, 1.6),
+    roupas: [toon(COR.roupa), toon('#C6BFAE'), toon(COR.objeto)],
+  }), []);
+
+  m.gab.opacity = 1 - 0.9 * e.raioX;
+  m.gab.depthWrite = e.raioX < 0.5;
+  m.tanque.opacity = 0.35 + 0.65 * (1 - e.raioX);
+  m.tanque.depthWrite = false;
+  m.concreto.opacity = 1 - 0.75 * e.tiraConcreto;
+
+  // furos do tambor (no referencial do tambor, que gira)
+  const furos = useMemo(() => {
+    const out: { p: V3; r: V3 }[] = [];
+    const nA = 28, nZ = 6;
+    for (let i = 0; i < nA; i++) for (let k = 0; k < nZ; k++) {
+      const a = ((i + (k % 2) * 0.5) / nA) * Math.PI * 2;
+      const z = TAMBOR.z0 + 0.12 + (k / (nZ - 1)) * (TAMBOR.z1 - TAMBOR.z0 - 0.24);
+      out.push({ p: [Math.cos(a) * (TAMBOR.r + 0.004), Math.sin(a) * (TAMBOR.r + 0.004), z], r: [0, Math.PI / 2, a] });
+    }
+    return out;
+  }, []);
+
+  // posição do tanque (treme sobre as molas e sai na vista explodida)
+  const tq = add(EIXO, add(e.tanqueOff, [0, 0, e.saiTanque * 1.1]));
+  const tb: V3 = [0, 0, e.saiTambor * 1.05]; // tambor relativo ao tanque
+  const topoTanque: V3[] = [add(tq, [-0.55, TANQUE.r - 0.02, 0.0]), add(tq, [0.55, TANQUE.r - 0.02, 0.0])];
+  const baseTanque: V3[] = [add(tq, [-0.45, -TANQUE.r + 0.02, 0.0]), add(tq, [0.45, -TANQUE.r + 0.02, 0.0])];
+  const inclinaAgua = 0.12 * Math.sin(e.t * 2.2) * e.lavando;
+  const giroMotor = e.phi * 6;
+
+  return (
+    <group position={e.maqOff} rotation={[0, e.giroGab, 0]}>
+      {/* gabinete */}
+      <group position={[0, GAB.h / 2, 0]}>
+        <mesh geometry={g.gab} material={m.gab} castShadow={e.raioX < 0.5} />
+        <Contorno geo={g.gab} largura={2.4} />
+      </group>
+      {[-0.8, 0.8].flatMap((x) => [-0.8, 0.8].map((z) => <Peca key={`${x}${z}`} geo={g.pe} mat={m.escuro} position={[x, 0.0, z]} />))}
+      {/* porta: aro e vidro */}
+      <group position={[-PORTA.r - 0.06, PORTA.y, PORTA.z + 0.04]} rotation={[0, -1.85 * e.porta, 0]}>
+        <group position={[PORTA.r + 0.06, 0, 0]}>
+          <Peca geo={g.aro} mat={m.objeto} />
+          <mesh geometry={g.vidro} material={m.vidro} />
+        </group>
+      </group>
+      {/* painel */}
+      <Peca geo={g.botao} mat={e.ligada > 0.5 ? m.luz : m.objeto} position={[0.55, 2.55, 1.03]} />
+      <Peca geo={g.visor} mat={m.escuro} position={[0.0, 2.55, 1.02]} />
+
+      {/* válvula, cano até a gaveta e daí para o tanque */}
+      <Peca geo={g.valvula} mat={m.escuro} position={VALVULA} quente={e.destValvula} />
+      <mesh geometry={g.cano} material={m.escuro} />
+      <Peca geo={g.gaveta} mat={m.objeto} position={[GAVETA[0], GAVETA[1], GAVETA[2] + 0.42 * e.gavetaAberta]} quente={e.destGaveta} />
+      <Fluxo curva={ENTRADA} n={26} t={e.t} vel={0.7} v={e.fluxoEntrada} r={0.045} />
+      {/* sensor de nível: tubinho de ar até o fundo do tanque */}
+      <Peca geo={g.presso} mat={e.avisa > 0.5 ? m.quente : m.objeto} position={PRESSO} quente={e.destTubo} />
+      <mesh geometry={g.canoAr} material={e.destTubo > 0.5 ? m.quente : m.escuro} />
+      {/* bomba e mangueira de saída */}
+      <Peca geo={g.bomba} mat={m.escuro} position={BOMBA} quente={e.destBomba} />
+      <mesh geometry={g.canoSaida} material={m.escuro} />
+      <Fluxo curva={SAIDA} n={30} t={e.t} vel={0.8} v={e.fluxoBomba} r={0.05} />
+
+      {/* molas (em cima) e amortecedores (embaixo) */}
+      {topoTanque.map((p, i) => (
+        <Mola key={i} a={[p[0] * 1.15, GAB.h - 0.08, p[2]]} b={p} quente={e.destMolas} mat={m.escuro} />
+      ))}
+      {baseTanque.map((p, i) => (
+        <Pistao key={i} a={[p[0] * 1.2, 0.08, p[2]]} b={p} camisa={0.28} r={0.05} />
+      ))}
+
+      {/* tanque */}
+      <group position={tq}>
+        <mesh geometry={g.tanque} material={m.tanque} />
+        <Contorno geo={g.tanque} quente={e.destTanque} largura={2} angulo={50} />
+        <mesh geometry={g.fundoTanque} material={m.escuro} position={[0, 0, TANQUE.z0]} rotation={[0, Math.PI, 0]} />
+        {/* polia grande atrás, girando com o tambor */}
+        <group position={[0, 0, POLIA_Z - EIXO[2]]} rotation={[0, 0, e.phi]}>
+          <Peca geo={g.polia} mat={m.objeto} quente={e.destCorreia} />
+          {[0, 1, 2].map((k) => (
+            <Haste key={k} a={[0, 0, 0.04]} b={[Math.cos((k * 2 * Math.PI) / 3) * 0.55, Math.sin((k * 2 * Math.PI) / 3) * 0.55, 0.04]} r={0.04} mat={m.escuro} />
+          ))}
+        </group>
+        {/* motor embaixo, preso no tanque, e a correia */}
+        <group position={[MOTOR[0] - EIXO[0], MOTOR[1] - EIXO[1], MOTOR[2] - EIXO[2]]}>
+          <Peca geo={g.motor} mat={m.objeto} quente={e.destMotor} />
+          <group position={[0, 0, POLIA_Z - MOTOR[2]]} rotation={[0, 0, giroMotor]}>
+            <Peca geo={g.poliaMotor} mat={m.escuro} />
+            <Haste a={[0, 0, 0.06]} b={[0.09, 0, 0.06]} r={0.02} mat={m.objeto} />
+          </group>
+        </group>
+        <Correia de={[0, 0]} r1={0.62} ate={[MOTOR[0] - EIXO[0], MOTOR[1] - EIXO[1]]} r2={0.1} z={POLIA_Z - EIXO[2]} quente={e.destCorreia} />
+        {/* bloco de concreto em cima do tanque */}
+        <group position={[CONCRETO[0] - EIXO[0], CONCRETO[1] - EIXO[1] + e.tiraConcreto * 1.6, CONCRETO[2] - EIXO[2]]}>
+          <Peca geo={g.concreto} mat={m.concreto} quente={e.destConcreto} />
+        </group>
+        {/* água */}
+        <group position={[0, 0, 0]}>
+          <Agua nivel={e.nivel} inclina={inclinaAgua} mat={m.agua} />
+        </group>
+        {/* tambor: gira; na vista explodida sai pela frente */}
+        <group position={tb}>
+          <group rotation={[0, 0, e.phi]}>
+            <mesh geometry={g.tambor} material={m.metal} />
+            <Contorno geo={g.tambor} quente={e.destTambor} largura={2} angulo={50} />
+            {furos.map((f, i) => (
+              <mesh key={i} geometry={g.furo} material={m.furo} position={f.p} rotation={f.r} />
+            ))}
+            {[0, 1, 2].map((k) => {
+              const a = (k * 2 * Math.PI) / 3 - Math.PI / 2;
+              return (
+                <group key={k} position={[Math.cos(a) * (TAMBOR.r - 0.07), Math.sin(a) * (TAMBOR.r - 0.07), (TAMBOR.z0 + TAMBOR.z1) / 2]} rotation={[0, 0, a]}>
+                  <Peca geo={g.pa} mat={m.objeto} quente={e.destPas} />
+                </group>
+              );
+            })}
+          </group>
+          <group position={[0, 0, (TAMBOR.z0 + TAMBOR.z1) / 2 - 0.05]}>
+            <Roupas e={e} mats={m.roupas} />
+          </group>
+          <Gotas e={e} />
+        </group>
+      </group>
+    </group>
+  );
+};
+
+/** correia: laço em volta das duas polias, no plano z */
+const Correia: React.FC<{ de: [number, number]; r1: number; ate: [number, number]; r2: number; z: number; quente: number }> = ({ de, r1, ate, r2, z, quente }) => {
+  const geo = useMemo(() => {
+    const pts: THREE.Vector3[] = [];
+    const [x1, y1] = de, [x2, y2] = ate;
+    const ang = Math.atan2(y2 - y1, x2 - x1);
+    const d = Math.hypot(x2 - x1, y2 - y1);
+    const beta = Math.acos((r1 - r2) / d);
+    // arco grande (polia 1) e arco pequeno (polia 2)
+    const n = 40;
+    for (let i = 0; i <= n; i++) {
+      const a = ang + beta + (i / n) * (2 * Math.PI - 2 * beta);
+      pts.push(new THREE.Vector3(x1 + Math.cos(a) * (r1 + 0.02), y1 + Math.sin(a) * (r1 + 0.02), z));
+    }
+    for (let i = 0; i <= 16; i++) {
+      const a = ang - beta + (i / 16) * 2 * beta;
+      pts.push(new THREE.Vector3(x2 + Math.cos(a) * (r2 + 0.02), y2 + Math.sin(a) * (r2 + 0.02), z));
+    }
+    return new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 160, 0.02, 6, true);
+  }, [de, r1, ate, r2, z]);
+  const m = useMemo(() => ({ n: toon(COR.escuro), q: brilho(COR.move, 2.2) }), []);
+  return <mesh geometry={geo} material={quente > 0.5 ? m.q : m.n} />;
+};

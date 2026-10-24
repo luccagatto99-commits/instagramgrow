@@ -1,0 +1,13 @@
+Essa foto não existe. Para o computador, ela é só uma fila de zeros e uns. Em noventa segundos, você vai entender como isso vira tudo o que você vê.
+
+Por que só zero e um? Porque lá dentro, tudo é fio com eletricidade. E um fio só diz, sem errar, se tem corrente ou não. Tem, é um. Não tem, é zero.
+
+Com um fio, são duas opções. Com dois, quatro. Com três, oito. Com oito fios, são duzentas e cinquenta e seis, uma para cada letra, número e sinal. O A é esta aqui.
+
+E a foto? Cada pontinho dela mistura três luzes, vermelha, verde e azul. A força de cada luz é um número que cabe em oito zeros e uns. Uma foto de celular tem quase trezentos milhões deles. E um vídeo é isso, trinta vezes por segundo.
+
+Quem dá conta disso é o processador, com bilhões de chavinhas que a própria corrente liga e desliga. Duas em fila só deixam a corrente passar se as duas estiverem ligadas. É assim que ele decide. Se a tecla foi apertada, e o programa está aberto, mostra a letra.
+
+Ele faz isso bilhões de vezes por segundo. Por isso, acende cada pontinho dessa foto no tom certo, mais rápido do que você pisca.
+
+Agora você sabe como um computador funciona por dentro. Segue a página para ver o próximo.

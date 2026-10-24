@@ -1,0 +1,15 @@
+Em 90 segundos, você vai entender como um computador funciona por dentro. Quando você aperta uma tecla, a letra faz uma viagem até a tela, em menos de um décimo de segundo.
+
+Vamos digitar oi, no WhatsApp. Embaixo de cada tecla, tem duas trilhas de metal. Apertou o O, elas se encostam e fecham um circuito. Um chipzinho do teclado testa as teclas centenas de vezes por segundo, e acha qual fechou.
+
+Ele avisa o computador mandando o código da tecla pelo fio, em pulsos de corrente. Tem corrente, é um. Não tem, é zero.
+
+O processador, com bilhões de chavinhas ligando e desligando, para tudo para atender. O Windows confere o código numa tabela do teclado brasileiro, e descobre que é a letra O. Daí em diante, ela vira o número 111.
+
+A letra vai para o programa aberto, o WhatsApp, que guarda o O na memória, junto com o resto da mensagem.
+
+Agora falta desenhar. A fonte diz o formato da letra, e o chip de vídeo pinta os pontinhos certos numa parte da memória que é a imagem da tela.
+
+A tela lê essa imagem 60 vezes por segundo. Cada pontinho acende suas três luzes, vermelha, verde e azul, na força certa. E o O aparece. Aí, tudo de novo, para o i.
+
+Agora você sabe como um computador funciona por dentro. Segue a página para ver o próximo.

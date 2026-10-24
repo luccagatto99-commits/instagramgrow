@@ -1,0 +1,21 @@
+A IA consegue passar em prova de medicina. Mas, se você perguntar quantas letras R existem na palavra morango, ela pode errar. Por que isso acontece?
+
+Neste vídeo, você vai entender três coisas. Primeiro: como a IA lê o que você escreve. Segundo: o que é um token. Terceiro: por que o morango confunde a IA. Acompanhe até o final.
+
+Um computador não entende letras. Ele só trabalha com números: soma, multiplica, compara. Por isso, a IA precisa transformar o seu texto em números.
+
+A primeira ideia seria dar um número para cada letra. Funciona, mas a sequência fica longa demais. A segunda ideia seria dar um número para cada palavra. Também não funciona: existem plurais, verbos conjugados, erros de digitação e palavras novas. A lista nunca acabaria.
+
+A solução foi dividir o texto em pedaços de palavra. Um programa leu uma enorme quantidade de textos e guardou os pedaços que mais se repetem. Palavras comuns viram um pedaço só. Palavras raras são montadas com pedaços menores, como peças de encaixe. No ChatGPT, essa lista tem cerca de 200 mil pedaços. Cada pedaço é chamado de token.
+
+A pergunta "Qual a capital do Brasil?" vira 6 tokens. Repare: o espaço antes da palavra vai junto. Agora, a palavra "coração". Ela é dividida em "c" e "oração". Não é por sílaba. Acontece porque "oração" já está na lista como um pedaço frequente.
+
+Cada token é trocado por um número fixo, como o código de barras de um produto. O token "Brasil", com o espaço antes, é sempre o número 15278. Só esses números entram na IA. As letras ficam de fora.
+
+Agora, o morango. Ele é dividido em dois tokens: "mor" e "ango". A IA recebe só dois números. Imagine duas caixas fechadas, cada uma com uma etiqueta. Alguém pergunta quantos R existem dentro delas, mas você só vê as etiquetas. É essa a situação dela. O erro não é falta de inteligência. Ela simplesmente não enxerga as letras.
+
+Por isso, o jeito mais seguro de acertar é separar letra por letra. Quando ela escreve m-o-r-a-n-g-o, cada letra vira um token, e contar fica fácil. Na prática: quando precisar de precisão com letras, peça para ela soletrar a palavra antes.
+
+Resumindo: a IA não lê letras, ela lê números. Um token é um pedaço de texto que recebe um número fixo. E o morango confunde porque as letras R ficam escondidas dentro dos tokens.
+
+Turno encerrado. Para entender a IA por dentro, siga a página. A fábrica abre todo dia.

@@ -1,0 +1,15 @@
+Frear na frente do radar agora não adianta mais. Ele lê a sua placa e espera você lá na frente. Você vai entender o porquê em 90 segundos.
+
+A primeira peça é uma câmera com luz infravermelha. Ela tira fotos de dia e de noite. Na foto, a IA acha a placa e lê letra por letra.
+
+O radar anota a placa e a hora exata. Quilômetros depois, um segundo radar faz a mesma coisa.
+
+O resto é conta. O trecho tem 10 quilômetros, com limite de 100. O mínimo é 6 minutos. Se você fez em 5, a sua média foi de 120 quilômetros por hora.
+
+Por isso, frear só na frente da câmera não adianta. Ela mede o trecho inteiro.
+
+No Brasil, esse radar está em teste em rodovias de 8 estados. Por enquanto, ele ainda não multa.
+
+E os radares mais novos fazem mais. A IA olha dentro do carro e procura celular na mão e motorista sem cinto. Mas ela só aponta. Uma pessoa confere a foto antes da multa.
+
+Siga a fábrica. Uma peça nova todo dia.

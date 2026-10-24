@@ -1,0 +1,15 @@
+Pra IA, "cachorro" é um número perto de cento e sessenta e nove mil. "Gato", perto de cem mil. Então como ela sabe que os dois são parecidos?
+
+No último vídeo, você viu que todo texto vira número antes de entrar na IA. Só que esse número é só uma etiqueta de catálogo. É como CPF: dois CPFs parecidos não são de pessoas parecidas. O número sozinho não diz nada sobre o significado.
+
+Então a IA faz uma segunda coisa. Cada etiqueta puxa uma lista de números de uma tabela gigante. Essa lista funciona como coordenada num mapa. Uma cidade tem duas: latitude e longitude. Cada palavra, na IA, tem milhares. No GPT três, eram mais de doze mil números por pedaço.
+
+E nesse mapa, quem tem significado parecido mora perto. "Cachorro" fica do lado de "gato". "Geladeira" fica lá do outro lado.
+
+Quem colocou cada palavra no lugar? Ninguém. No começo, os números são aleatórios. Durante o treino, a IA lê bilhões de frases, e palavras que aparecem nos mesmos lugares vão sendo puxadas pra perto. "Levei o cachorro pra passear." "Levei o gato pra passear." Ninguém leva a geladeira pra passear.
+
+E o mapa guarda até relações. Em dois mil e treze, pesquisadores do Google pegaram as coordenadas de "rei", tiraram as de "homem", somaram as de "mulher"... e a palavra mais próxima do resultado era "rainha". Ninguém ensinou isso. Saiu da geometria.
+
+É por isso que a IA entende quando você usa outras palavras pra perguntar a mesma coisa. Ela não compara letras. Ela compara posições no mapa.
+
+Turno encerrado. Cansado de só colar prompt e não aprender nada? Segue. A fábrica abre toda semana.

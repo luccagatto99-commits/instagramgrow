@@ -1,0 +1,15 @@
+Você já se perguntou como o Google Maps sabe que tem trânsito na sua rua, se ninguém instalou sensor nenhum lá? Em noventa segundos, você vai entender.
+
+O sensor é o celular de quem está no trânsito. Celulares com a localização ligada enviam, de forma anônima, onde estão e a que velocidade andam.
+
+Quando muitos celulares andam devagar no mesmo pedaço da rua, o Maps entende que ali está parado. A rua fica laranja, depois vermelha.
+
+Mas mostrar o trânsito de agora é a parte fácil. O difícil é prever quanto tempo você vai levar, porque até você chegar no fim da avenida, o trânsito já mudou.
+
+Para isso, o Google usa uma IA criada pela DeepMind. Ela olha como aquela rua costuma estar naquele dia e horário, e também o que está acontecendo nas ruas vizinhas. Um engarrafamento numa rua lateral vai chegar na sua daqui a pouco, e ela já sabe disso.
+
+Com essa IA, a previsão de chegada ficou até cinquenta por cento mais precisa em cidades como São Paulo.
+
+E tem um detalhe: quando você está parado no congestionamento com o celular no bolso, você também está avisando quem vem atrás.
+
+Siga a fábrica. Uma peça nova todo dia.

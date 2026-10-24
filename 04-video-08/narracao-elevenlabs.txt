@@ -1,0 +1,17 @@
+Um banco italiano transferiu noventa e cinco milhões de euros depois de uma única ligação. A voz do outro lado era de um advogado conhecido, mas quem falava era uma inteligência artificial.
+
+O golpe começou no WhatsApp, com uma mensagem que parecia vir do chefe do presidente do banco, pedindo transferências urgentes. Logo depois, o advogado ligou confirmando. Eram duas confirmações, e as duas eram falsas.
+
+E a voz que você está ouvindo agora também foi criada por IA. Então vamos ver o que acontece dentro dessa máquina.
+
+Para a IA, uma voz não é som. Ela corta o áudio em pedaços minúsculos e transforma cada um em números, como o ChatGPT faz com as palavras.
+
+Com poucos segundos de gravação, ela aprende o padrão da pessoa: tom, ritmo, sotaque e até a respiração. É uma impressão digital da voz.
+
+Depois, ela fala como o ChatGPT escreve: prevendo o próximo pedaço de som mais provável para aquela voz. Em dois mil e vinte e três, a Microsoft fez isso com só três segundos de áudio, que estão em qualquer entrevista ou áudio de WhatsApp.
+
+O banco recuperou pouco mais da metade. O resto virou criptomoeda e sumiu.
+
+Eles tinham duas confirmações. Faltou a única que a IA não falsifica: desligar e ligar de volta para um número que você já conhece.
+
+Siga a fábrica. Uma peça nova todo dia.

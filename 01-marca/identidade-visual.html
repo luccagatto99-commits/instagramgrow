@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Fábrica — Identidade Visual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Archivo+Black&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--amarelo:#FFD84D;--preto:#111111;--vermelho:#FF5A36;--azul:#2F6BFF;--verde:#22B573;--branco:#FFFFFF}
+*{box-sizing:border-box}
+body{margin:0;background:#EFEDE8;color:var(--preto);font-family:'Archivo',sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:48px 16px 80px}
+h1{font-family:'Archivo Black',sans-serif;font-size:48px;margin:0 0 6px}
+h2{font-family:'Archivo Black',sans-serif;font-size:26px;margin:56px 0 16px}
+p.lead{font-size:18px;margin:0 0 8px;max-width:720px}
+.grid{display:grid;gap:16px}
+.cores{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.cor{border:4px solid var(--preto);border-radius:16px;overflow:hidden;background:var(--branco)}
+.cor .s{height:90px;border-bottom:4px solid var(--preto)}
+.cor .t{padding:10px 12px;font-size:14px;line-height:1.35}
+.cor b{display:block;font-size:15px}
+.mono{font-family:'JetBrains Mono',monospace}
+.tipos{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.card{background:var(--branco);border:4px solid var(--preto);border-radius:16px;padding:18px}
+.card small{display:block;color:#444;font-size:13px;margin-top:6px}
+.comp{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.stage{background:var(--amarelo);border:4px solid var(--preto);border-radius:16px;min-height:150px;display:flex;align-items:center;justify-content:center;padding:18px;flex-direction:column;gap:10px}
+.placa{background:var(--preto);color:var(--amarelo);font-weight:900;letter-spacing:2px;padding:8px 16px;font-size:14px;border-radius:6px}
+.caixa{background:var(--branco);border:4px solid var(--preto);border-radius:8px;padding:8px 14px;font-family:'Archivo Black',sans-serif;font-size:20px;display:inline-flex;flex-direction:column;align-items:center}
+.caixa .id{font-family:'JetBrains Mono',monospace;color:var(--azul);font-size:14px;font-weight:700}
+.caixa.saida{background:var(--verde)}
+.esteira{width:100%;height:26px;background:var(--preto);border-radius:13px;display:flex;align-items:center;justify-content:space-around}
+.esteira i{width:12px;height:12px;border-radius:6px;background:var(--amarelo)}
+.maq{background:var(--vermelho);border:4px solid var(--preto);border-radius:14px;width:150px;height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900;font-size:13px;letter-spacing:1px}
+.selo{background:var(--preto);color:var(--branco);font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:1px}
+.aviso{background:var(--branco);border:4px solid var(--preto);border-radius:14px;box-shadow:8px 8px 0 var(--preto);padding:14px;max-width:240px}
+.aviso .f{margin-top:10px;background:var(--vermelho);border:3px solid var(--preto);border-radius:8px;padding:6px;font-family:'Archivo Black',sans-serif;font-size:13px;text-align:center}
+.frames{display:flex;gap:24px;flex-wrap:wrap}
+.frame{width:300px;height:533px;border-radius:24px;overflow:hidden;position:relative;background:var(--amarelo);border:4px solid var(--preto);flex:0 0 auto}
+.frame .placa{position:absolute;top:28px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:12px}
+.frame .leg{position:absolute;left:18px;right:18px;top:380px;font-family:'Archivo Black',sans-serif;font-size:22px;line-height:1.15;text-align:center}
+.frame .selo{position:absolute;top:28px;right:14px;font-size:9px}
+.rules{columns:2;column-gap:32px;font-size:16px;line-height:1.5}
+.rules li{break-inside:avoid;margin-bottom:6px}
+@media (max-width:640px){.rules{columns:1}h1{font-size:36px}.frame{width:100%;max-width:300px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>A Fábrica</h1>
+<p class="lead">Identidade visual dos reels. Dentro de toda IA existe uma fábrica: cada mecanismo real vira uma máquina, cada token vira uma caixa. Formato 1080×1920, 30 fps.</p>
+
+<h2>Cores — cada uma tem um significado fixo</h2>
+<div class="grid cores">
+<div class="cor"><div class="s" style="background:#FFD84D"></div><div class="t"><b>Amarelo Fábrica</b><span class="mono">#FFD84D</span><br>Fundo de todo vídeo</div></div>
+<div class="cor"><div class="s" style="background:#111111"></div><div class="t"><b>Preto Contorno</b><span class="mono">#111111</span><br>Contornos, texto, esteira, placas</div></div>
+<div class="cor"><div class="s" style="background:#FF5A36"></div><div class="t"><b>Vermelho Corte</b><span class="mono">#FF5A36</span><br>Cortar, transformar; CTA</div></div>
+<div class="cor"><div class="s" style="background:#2F6BFF"></div><div class="t"><b>Azul Número</b><span class="mono">#2F6BFF</span><br>IDs, notas, probabilidades</div></div>
+<div class="cor"><div class="s" style="background:#22B573"></div><div class="t"><b>Verde Saída</b><span class="mono">#22B573</span><br>Resposta, token escolhido</div></div>
+<div class="cor"><div class="s" style="background:#FFFFFF"></div><div class="t"><b>Branco Caixa</b><span class="mono">#FFFFFF</span><br>Caixas (tokens) e balões</div></div>
+</div>
+
+<h2>Tipografia</h2>
+<div class="grid tipos">
+<div class="card"><div style="font-family:'Archivo Black',sans-serif;font-size:34px">A IA não lê palavras</div><small>Archivo Black — legendas, títulos, texto nas caixas (64–84 px no vídeo)</small></div>
+<div class="card"><div style="font-weight:900;letter-spacing:2px;font-size:22px">TOKENIZADOR · SETOR</div><small>Archivo 700/900 — placas e rótulos, caixa alta (36–44 px)</small></div>
+<div class="card"><div class="mono" style="font-size:30px;color:#2F6BFF;font-weight:700">15278 · 84,4%</div><small>JetBrains Mono — IDs, números, porcentagens (40–56 px)</small></div>
+</div>
+
+<h2>Componentes</h2>
+<div class="grid comp">
+<div class="stage"><div class="placa">TOKENIZADOR</div><small>Placa de área</small></div>
+<div class="stage"><div style="display:flex;gap:8px"><div class="caixa">␣Brasil<span class="id">15278</span></div><div class="caixa saida">␣Brasília<span class="id" style="color:#111">92512</span></div></div><small>Caixa-token · caixa de saída</small></div>
+<div class="stage"><div class="esteira"><i></i><i></i><i></i><i></i><i></i><i></i></div><small>Esteira</small></div>
+<div class="stage"><div class="maq"><svg aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>TOKENIZADOR</div><small>Máquina</small></div>
+<div class="stage"><div style="display:flex;gap:8px"><span class="selo">REAL</span><span class="selo">ILUSTRATIVO</span></div><small>Selos</small></div>
+<div class="stage"><div class="aviso"><div style="font-family:'Archivo Black',sans-serif;font-size:17px;line-height:1.1">Cansado de só colar prompt e não aprender nada?</div><div class="f">SEGUE. A FÁBRICA ABRE TODA SEMANA.</div></div><small>Placa de aviso (fechamento)</small></div>
+</div>
+
+<h2>Quadros de referência — vídeo 01</h2>
+<div class="frames">
+<div class="frame"><div class="placa">TOKENIZADOR</div><span class="selo">REAL</span>
+<div style="position:absolute;left:75px;top:100px;width:150px;height:120px;background:#FF5A36;border:4px solid #111;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;letter-spacing:1px">GUILHOTINA</div>
+<div style="position:absolute;left:144px;top:220px;width:12px;height:50px;background:#111"></div>
+<div style="position:absolute;left:14px;right:14px;top:280px;display:flex;gap:8px;justify-content:center"><div class="caixa">c</div><div class="caixa">oração</div></div>
+<div style="position:absolute;left:10px;right:10px;top:335px;width:auto" class="esteira"><i></i><i></i><i></i><i></i><i></i></div>
+<div class="leg">Você escreve "coração". A IA recebe "c" e "oração".</div></div>
+
+<div class="frame"><div class="placa">CARIMBADORA</div><span class="selo">REAL</span>
+<div style="position:absolute;left:12px;right:12px;top:120px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+<div class="caixa" style="font-size:16px">Qual<span class="id">16752</span></div><div class="caixa" style="font-size:16px">␣a<span class="id">261</span></div><div class="caixa" style="font-size:16px">␣capital<span class="id">9029</span></div><div class="caixa" style="font-size:16px">␣do<span class="id">621</span></div><div class="caixa" style="font-size:16px">␣Brasil<span class="id">15278</span></div><div class="caixa" style="font-size:16px">?<span class="id">30</span></div></div>
+<div style="position:absolute;left:10px;right:10px;top:335px;width:auto" class="esteira"><i></i><i></i><i></i><i></i><i></i></div>
+<div class="leg">Cada pedaço vira <span style="color:#2F6BFF">um número</span>.</div></div>
+
+<div class="frame" style="background:#FFD84D">
+<div style="position:absolute;left:22px;right:22px;top:80px" class="aviso"><div style="font-size:11px;font-weight:900;letter-spacing:2px;color:#FF5A36">TURNO ENCERRADO</div><div style="font-family:'Archivo Black',sans-serif;font-size:24px;line-height:1.08;margin-top:8px">Cansado de só colar prompt e não aprender nada?</div><div class="f" style="font-size:15px">SEGUE. A FÁBRICA ABRE TODA SEMANA.</div></div>
+<div style="position:absolute;left:0;right:0;top:400px;text-align:center;font-weight:700;font-size:13px">@SEUPERFIL</div></div>
+</div>
+
+<h2>Regras</h2>
+<ul class="rules">
+<li>Tudo que entra vira caixa. Tudo que sai também.</li>
+<li>Toda máquina tem placa com o nome e, menor, o termo técnico.</li>
+<li>Proibido: robô humanoide, cérebro brilhante, código caindo, fundo escuro, degradê.</li>
+<li>Contorno preto grosso em todo objeto; sombra dura só em placas e destaques.</li>
+<li>Tudo anda da esquerda para a direita, como a esteira.</li>
+<li>Cena com dado leva selo REAL ou ILUSTRATIVO.</li>
+<li>Abre com o som do cartão de ponto; fecha com "Turno encerrado." e apito.</li>
+<li>Nada importante nos 250 px do topo, 420 px da base e 140 px da direita.</li>
+</ul>
+</div>
+</body>
+</html>

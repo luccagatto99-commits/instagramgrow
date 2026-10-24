@@ -1,0 +1,19 @@
+Imagine um advogado que pede ao ChatGPT casos parecidos com o do seu cliente. A IA entrega seis processos. Ele leva tudo ao juiz. E descobre que nenhum deles existe. Isso aconteceu de verdade, em Nova York, em dois mil e vinte e três. Por que a IA inventa com tanta segurança?
+
+Isso se chama alucinação. Não é mentira: a IA não sabe que está errada.
+
+A IA escreve uma palavra de cada vez, sempre escolhendo a que tem mais chance de vir a seguir. Ela não guarda fatos. Ela reconhece como um texto costuma ser.
+
+Quando a informação é conhecida, a opção mais provável é a correta. Quando é rara, ela completa com algo que parece correto: um nome comum, um número possível, uma data que faz sentido.
+
+E não existe, dentro dela, uma etapa que confere a resposta antes de enviar. Ela sabe se a frase parece certa. Não se é certa.
+
+Por que ela não responde "não sei"? Um estudo da OpenAI, de dois mil e vinte e cinco, explica: as IAs são avaliadas como numa prova de múltipla escolha. Chutar às vezes dá ponto. Deixar em branco nunca dá. Então elas aprendem a chutar.
+
+Por isso os erros aparecem mais em nomes, datas, números, citações e leis. E foi exatamente isso que aconteceu com os advogados de Nova York. A IA não encontrou seis processos. Ela escreveu seis processos com cara de verdadeiros.
+
+Três cuidados resolvem a maior parte. Peça a fonte e abra o link. Se eles tivessem feito só isso, teriam descoberto antes do juiz. Para informações atuais, use a IA com busca na internet. E confira todo detalhe muito específico.
+
+Segurança na resposta não é garantia de acerto.
+
+Turno encerrado. Siga a fábrica. Uma peça nova todo dia.
